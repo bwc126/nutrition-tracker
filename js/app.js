@@ -3,9 +3,7 @@
 var APP_ID='0c63dc0a';
 var APP_KEY='77e404c364eba040b8dcf4113d32de0e';
 var storage = localStorage;
-var present = new Date();
-console.log(present);
-var today = present.getMonth() + "-" + present.getDate() + "-" + present.getFullYear();
+
 $('#calendar').datepicker({
   todayBtn: true,
   todayHighlight: true
@@ -17,10 +15,10 @@ Backbone.sync = function(method, model, success, error){
   success();
 }
 var foodItem = Backbone.Model.extend({
-  // defaults: {
-  //   name: 'Yum',
-  //   cals: 200
-  // }
+  defaults: {
+    name: 'Yum',
+    cals: 200
+  }
 });
 var searchTerm = Backbone.Model.extend({
   defaults: {
@@ -34,30 +32,25 @@ var Search = Backbone.Collection.extend({
   model: searchTerm
 });
 var userStorage;
+
 var Saved = Backbone.Collection.extend({
-  initialize: function() {
+  initialize: function(date) {
     _.bindAll(this, 'add', 'store', 'retrieve');
     var self = this;
-    this.bind('add', this.store);
-    this.bind('remove', this.store);
+    this.date = date;
+    this.bind('add', self.store);
+    this.bind('remove', self.store);
   },
   store: function() {
     var self = this;
-    storage.setItem(today,JSON.stringify(self));
-    console.dir(JSON.stringify(self));
+    storage.setItem(self.date,JSON.stringify(self.clone()));
   },
-  retrieve: function(date) {
-    this.set(JSON.parse(storage.getItem(date.valueOf())));
+  retrieve: function() {
+    var self = this;
+    this.set(JSON.parse(storage.getItem(self.date)));
   },
 });
 
-if (!storage.today) {
-  userStorage = new Saved();
-}
-else {
-  userStorage = new Saved();
-  userStorage.retrieve(today.valueOf());
-}
 var ItemView = Backbone.View.extend({
   tagName: 'li', // name of tag to be created
 // ItemViews now respond to two clickable actions for each Item: swap and delete.
@@ -174,15 +167,21 @@ var StorageView = Backbone.View.extend({
     _(this.collection.models).each(function(item) {
       var itemView = self.appendItem(item);
       itemView.bind('remove',self.collection.remove(this));
+
+
     });
   },
   appendItem: function(item) {
     var self = this;
-    var itemView = new StorageItemView({
+    var itemView;
+
+    itemView = new StorageItemView({
       model: item
     });
     var frag = itemView.render().el;
     $('ul', this.el).append(frag);
+
+
     return itemView;
   },
 })
@@ -232,9 +231,18 @@ var ListView = Backbone.View.extend({
   },
   renderStorageView: function() {
 
-    $('ul li').remove();
     var activeDate = $('#calendar').datepicker('getDate');
-    console.log(activeDate);
+    $('ul li').remove();
+    if (activeDate) {
+      var formattedActiveDate = activeDate.getMonth() + "-" + activeDate.getDate() + "-" + activeDate.getFullYear();
+      userStorage = new Saved(formattedActiveDate);
+      if (!storage.getItem(formattedActiveDate)) {
+        userStorage.set([]);
+      }
+      else {
+        userStorage.retrieve();
+      }
+    }
     var storageView = new StorageView({
       collection: userStorage,
     });
@@ -243,4 +251,14 @@ var ListView = Backbone.View.extend({
 var searchView = new SearchView();
 var listView = new ListView();
 tempListView = listView;
+
+var today = new Date();
+var todayFormatted = today.getMonth() + "-" + today.getDate() + "-" + today.getFullYear();
+userStorage = new Saved(todayFormatted);
+if (!storage.getItem(todayFormatted)) {
+  userStorage.set([]);
+}
+else {
+  userStorage.retrieve(todayFormatted);
+}
 })(jQuery);
