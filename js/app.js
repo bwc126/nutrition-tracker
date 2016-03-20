@@ -3,6 +3,7 @@
 var APP_ID='0c63dc0a';
 var APP_KEY='77e404c364eba040b8dcf4113d32de0e';
 var storage = localStorage;
+var googCharts = false;
 
 $('#calendar').datepicker({
   todayBtn: true,
@@ -49,6 +50,14 @@ var Saved = Backbone.Collection.extend({
     var self = this;
     this.set(JSON.parse(storage.getItem(self.date)));
   },
+  getCals: function() {
+    var total = 0;
+    _(this.models).each(function(item) {
+      console.log(item.get('cals'));
+      total += item.get('cals');
+    })
+    return total;
+  }
 });
 
 var ItemView = Backbone.View.extend({
@@ -111,7 +120,20 @@ var StorageItemView = Backbone.View.extend({
     this.model.destroy();
   }
 });
-var tempListView;
+var IndicatorView = Backbone.View.extend({
+  el: $('img'),
+  initialize: function() {
+    $(this.el).css('display','none');
+  },
+  render: function() {
+    $(this.el).css('display','');
+  },
+  unrender: function() {
+    $(this.el).css('display','none');
+  }
+})
+var indicator;
+var activeListView;
 var SearchView = Backbone.View.extend({
   el: $('input'),
   events: {
@@ -129,7 +151,7 @@ var SearchView = Backbone.View.extend({
     var key = this.$el.val();
     var search = new searchTerm();
     search.set({term: key})
-
+    indicator.render();
     this.getResults(key);
     return search;
   },
@@ -145,8 +167,9 @@ var SearchView = Backbone.View.extend({
             name: item.fields.brand_name + " " + item.fields.item_name,
             cals: item.fields.nf_calories
           });
-          tempListView.appendItem(food);
+          activeListView.appendItem(food);
         })
+        indicator.unrender();
       }
     });
   },
@@ -167,9 +190,8 @@ var StorageView = Backbone.View.extend({
     _(this.collection.models).each(function(item) {
       var itemView = self.appendItem(item);
       itemView.bind('remove',self.collection.remove(this));
-
-
     });
+    $('ul',self.el).append("<li style='color: green'>Total Calories: "+self.collection.getCals()+"</li>");
   },
   appendItem: function(item) {
     var self = this;
@@ -184,13 +206,61 @@ var StorageView = Backbone.View.extend({
 
     return itemView;
   },
+});
+var TrendsView = Backbone.View.extend({
+  el: $('body'),
+  events: {
+    'click #calendar': 'render',
+    'click #saved': 'unrender',
+    'keyup input': 'unrender'
+  },
+  initialize: function() {
+    _.bindAll(this,'render');
+    indicator.render();
+    this.render();
+  },
+  render: function() {
+    var self = this;
+    var activeDate = $('#calendar').datepicker('getDate');
+    if (!activeDate) {
+      formattedActiveDate = todayFormatted;
+    }
+    else {
+      var formattedActiveDate = activeDate.getMonth() + "-" + activeDate.getDate() + "-" + activeDate.getFullYear();
+    }
+    if (!googCharts) {
+      $('ul',this.el).append("<li>Google Charts Not Ready</li>")
+    }
+    else {
+      $('ul',this.el).append("<div id='chart' style='width:900; height:500'></div>");
+      var data = new google.visualization.DataTable();
+      data.addColumn('string','Date');
+      data.addColumn('number','Calories');
+      var rows = [];
+      for (var d = 0; d<7; d++) {
+        rows.push([d.toString(),200]);
+      }
+      data.addRows(rows);
+      var options = {
+        'title': 'Calories Consumed',
+        'width': 900,
+        'height': 500
+      };
+      var chart = new google.visualization.LineChart($("#chart")[0]);
+      chart.draw(data,options);
+      indicator.unrender();
+    }
+  },
+  unrender: function() {
+    $('#chart',this.el).remove();
+  }
 })
 // Because the new features (swap and delete) are intrinsic to each Item, there is no need to modify ListView.
 var ListView = Backbone.View.extend({
   el: $('body'), // el attaches to existing element
   events: {
-    'click button#saved': 'renderStorageView'
-
+    'click button#saved': 'renderStorageView',
+    'click button#trends': 'renderTrendsView'
   },
   initialize: function() {
     _.bindAll(this, 'render', 'addItem', 'appendItem'); // every function that uses 'this' as the current object should be in here
@@ -202,6 +272,7 @@ var ListView = Backbone.View.extend({
   render: function() {
     var self = this;
     $(this.el).append("<button id='saved'>View Saved Items</button>");
+    $(this.el).append("<button id='trends'>View Trends Graph</button>");
     $(this.el).append("<ul></ul>");
     _(this.collection.models).each(function(item) { // in case collection is not empty
       self.appendItem(item);
@@ -229,10 +300,13 @@ var ListView = Backbone.View.extend({
 
     $('ul li:first-child').remove()
   },
-  renderStorageView: function() {
+  removeAll: function() {
 
-    var activeDate = $('#calendar').datepicker('getDate');
     $('ul li').remove();
+  },
+  renderStorageView: function() {
+    this.removeAll();
+    var activeDate = $('#calendar').datepicker('getDate');
     if (activeDate) {
       var formattedActiveDate = activeDate.getMonth() + "-" + activeDate.getDate() + "-" + activeDate.getFullYear();
       userStorage = new Saved(formattedActiveDate);
@@ -246,12 +320,19 @@ var ListView = Backbone.View.extend({
     var storageView = new StorageView({
       collection: userStorage,
     });
+  },
+  renderTrendsView: function() {
+    this.removeAll();
+    var trendsView = new TrendsView({
+      collection: userStorage
+    });
   }
 });
 var searchView = new SearchView();
+var indicatorView = new IndicatorView();
 var listView = new ListView();
-tempListView = listView;
-
+activeListView = listView;
+indicator = indicatorView;
 var today = new Date();
 var todayFormatted = today.getMonth() + "-" + today.getDate() + "-" + today.getFullYear();
 userStorage = new Saved(todayFormatted);

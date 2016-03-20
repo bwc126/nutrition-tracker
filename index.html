@@ -9,6 +9,7 @@
     <div id="calendar">
     </div>
     <input type="text" placeholder="Search">
+    <img src="img/ajax-loader.gif" height="31" width="31">
   </header>
   <body>
   </body>
@@ -23,4 +24,11 @@
   <script src="js/bootstrap-datepicker.min.js"></script>
   <script src="js/backbone.js"></script>
   <script src="js/app.js"></script>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+      google.charts.load('current',{'packages':['corechart']});
+      google.charts.setOnLoadCallback(function() {
+        googCharts = true;
+      })
+  </script>
 </html>
