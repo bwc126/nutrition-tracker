@@ -45,6 +45,7 @@ var Saved = Backbone.Collection.extend({
   store: function() {
     var self = this;
     storage.setItem(self.date,JSON.stringify(self.clone()));
+    storage.setItem(self.date.total,self.getCals());
   },
   retrieve: function() {
     var self = this;
@@ -52,11 +53,43 @@ var Saved = Backbone.Collection.extend({
   },
   getCals: function() {
     var total = 0;
+
     _(this.models).each(function(item) {
       console.log(item.get('cals'));
       total += item.get('cals');
     })
     return total;
+
+  },
+  getWeeklyCals: function() {
+    var originalDate = this.date;
+    var first = originalDate.search(/-/g);
+    var second = originalDate.length-5;
+    var month = originalDate.slice(0,first);
+    var day = originalDate.slice(first+1,second);
+    var year = originalDate.slice(second+1);
+    var total = [];
+    var self = this;
+    for (var i = 6; i >= 0; i--) {
+      var focusDay = day - i;
+      if (focusDay<0) {
+        month = month-1;
+        focusDay = 30 - focusDay;
+      }
+      if (month<0) {
+        year = year -1;
+        month = 11;
+      }
+      self.date = month + "-" + focusDay + "-" + year;
+      console.log(self.date);
+      self.retrieve();
+      total.push([self.date,self.getCals()]);
+
+    }
+    self.date = originalDate;
+    self.retrieve();
+    return total;
+
   }
 });
 
@@ -236,10 +269,8 @@ var TrendsView = Backbone.View.extend({
       var data = new google.visualization.DataTable();
       data.addColumn('string','Date');
       data.addColumn('number','Calories');
-      var rows = [];
-      for (var d = 0; d<7; d++) {
-        rows.push([d.toString(),200]);
-      }
+      var rows = userStorage.getWeeklyCals();
+
       data.addRows(rows);
       var options = {
         'title': 'Calories Consumed',
