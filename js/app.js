@@ -5,10 +5,6 @@ var APP_KEY='77e404c364eba040b8dcf4113d32de0e';
 var storage = localStorage;
 var googCharts = false;
 
-$('#calendar').datepicker({
-  todayBtn: true,
-  todayHighlight: true
-});
 var day;
 (function($){
 // Backbone.sync: Overrides persistence storage with dummy function. This enables use of Model.destroy() without raising an error.
@@ -82,8 +78,9 @@ var Saved = Backbone.Collection.extend({
       }
       self.date = month + "-" + focusDay + "-" + year;
       console.log(self.date);
+      var dispDate = (Number(month)+1) + "-" + focusDay + "-" + year;
       self.retrieve();
-      total.push([self.date,self.getCals()]);
+      total.push([dispDate,self.getCals()]);
 
     }
     self.date = originalDate;
@@ -92,7 +89,42 @@ var Saved = Backbone.Collection.extend({
 
   }
 });
+var CalendarView = Backbone.View.extend({
+  el: $('body'),
+  events: {
+    'mouseover button' : 'activateDate',
+    'mouseover span' : 'activateDate'
+  },
 
+  initialize: function() {
+    _.bindAll(this, 'render', 'activateDate');
+    var today = new Date();
+    var todayFormatted = today.getMonth() + "-" + today.getDate() + "-" + today.getFullYear();
+    this.activeDate = todayFormatted;
+    this.render();
+
+  },
+  render: function() {
+    $('#calendar').datepicker({
+      todayBtn: true,
+      todayHighlight: true
+    });
+
+  },
+  activateDate: function() {
+    console.log("inside activateDate");
+    var self = this;
+    var activeDate = $('#calendar').datepicker('getDate');
+
+    if (!activeDate) {}
+    else {
+      self.activeDate = activeDate.getMonth() + "-" + activeDate.getDate() + "-" + activeDate.getFullYear();
+      console.log(self.activeDate);
+
+    }
+  }
+
+})
 var ItemView = Backbone.View.extend({
   tagName: 'li', // name of tag to be created
 // ItemViews now respond to two clickable actions for each Item: swap and delete.
@@ -277,7 +309,7 @@ var TrendsView = Backbone.View.extend({
         'width': 900,
         'height': 500
       };
-      var chart = new google.visualization.LineChart($("#chart")[0]);
+      var chart = new google.visualization.ColumnChart($("#chart")[0]);
       chart.draw(data,options);
       indicator.unrender();
     }
@@ -337,23 +369,17 @@ var ListView = Backbone.View.extend({
   },
   renderStorageView: function() {
     this.removeAll();
-    var activeDate = $('#calendar').datepicker('getDate');
-    if (activeDate) {
-      var formattedActiveDate = activeDate.getMonth() + "-" + activeDate.getDate() + "-" + activeDate.getFullYear();
-      userStorage = new Saved(formattedActiveDate);
-      if (!storage.getItem(formattedActiveDate)) {
-        userStorage.set([]);
-      }
-      else {
-        userStorage.retrieve();
-      }
-    }
+    userStorage.date = calendarView.activeDate;
+    userStorage.retrieve();
+
     var storageView = new StorageView({
       collection: userStorage,
     });
   },
   renderTrendsView: function() {
     this.removeAll();
+    userStorage.date = calendarView.activeDate;
+    userStorage.retrieve();
     var trendsView = new TrendsView({
       collection: userStorage
     });
@@ -366,11 +392,12 @@ activeListView = listView;
 indicator = indicatorView;
 var today = new Date();
 var todayFormatted = today.getMonth() + "-" + today.getDate() + "-" + today.getFullYear();
-userStorage = new Saved(todayFormatted);
-if (!storage.getItem(todayFormatted)) {
+var calendarView = new CalendarView();
+userStorage = new Saved(calendarView.activeDate);
+if (!storage.getItem(calendarView.activeDate)) {
   userStorage.set([]);
 }
 else {
-  userStorage.retrieve(todayFormatted);
+  userStorage.retrieve(calendarView.activeDate);
 }
 })(jQuery);
