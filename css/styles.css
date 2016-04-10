@@ -1,8 +1,17 @@
 input {
   color: grey;
 }
+button.col-xs-6 {
+  font-size: 90%;
+}
 footer a {
   position: absolute;
   bottom: 3%;
   right: 3%;
+}
+.datepicker.datepicker-inline {
+  width: 100%;
+}
+table {
+  width: 100%;
 }

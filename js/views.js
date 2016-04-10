@@ -194,7 +194,7 @@ var activeListView;
     },
   });
   TrendsView = Backbone.View.extend({
-    el: $('body'),
+    el: $('.row','body'),
     events: {
       'click #calendar': 'render',
       'click #saved': 'unrender',
@@ -215,10 +215,10 @@ var activeListView;
         var formattedActiveDate = activeDate.getMonth() + "-" + activeDate.getDate() + "-" + activeDate.getFullYear();
       }
       if (!googCharts) {
-        $('ul',this.el).append("<li>Google Charts Not Ready</li>")
+        $(this.el).append("<li>Google Charts Not Ready</li>")
       }
       else {
-        $('ul',this.el).append("<div id='chart' style='width:900; height:500'></div>");
+        $(this.el).append("<div class='row'><div class='col-xs-2'></div><div id='chart' class='col-xs-8' style='width:900; height:500'></div><div class='col-xs-2'></div></div>");
         var data = new google.visualization.DataTable();
         data.addColumn('string','Date');
         data.addColumn('number','Calories');
@@ -241,7 +241,7 @@ var activeListView;
   })
   // Because the new features (swap and delete) are intrinsic to each Item, there is no need to modify ListView.
   ListView = Backbone.View.extend({
-    el: $('body'), // el attaches to existing element
+    el: $('.form'), // el attaches to existing element
     events: {
       'click button#saved': 'renderStorageView',
       'click button#trends': 'renderTrendsView'
@@ -255,8 +255,8 @@ var activeListView;
     },
     render: function() {
       var self = this;
-      $(this.el).append("<button id='saved'>View Saved Items</button>");
-      $(this.el).append("<button id='trends'>View Trends Graph</button>");
+      $(this.el).append("<button id='saved' class='col-xs-6'>View Saved Items</button>");
+      $(this.el).append("<button id='trends' class='col-xs-6'>View Trends Graph</button>");
       $(this.el).append("<ul></ul>");
       _(this.collection.models).each(function(item) { // in case collection is not empty
         self.appendItem(item);

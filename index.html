@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-datepicker3.standalone.min.css">
+    <link rel="stylesheet" href="css/styles.css">
   </head>
   <header>
-    <div id="calendar">
+    <div class='row'>
+      <div class='row'>
+        <div class='col-xs-4'></div>
+        <div id="calendar" class='col-xs-4'>
+        </div>
+        <div class='col-xs-4'></div>
+      </div>
+      <div class='row'>
+        <div class='col-xs-4'></div>
+        <div class='col-xs-4 form'>
+          <input type="text" placeholder="Search" class='col-xs-12'>
+          <img src="img/ajax-loader.gif" height="31" width="31">
+        </div>
+        <div class='col-xs-4'></div>
+      </div>
     </div>
-    <input type="text" placeholder="Search">
-    <img src="img/ajax-loader.gif" height="31" width="31">
   </header>
-  <body>
-  </body>
+  <div class='row'>
+    <body>
+    </body>
+  </div>
   <footer>
     <a href='http://www.nutritionix.com/api'>
       <img src='https://d3jpl91pxevbkh.cloudfront.net/nutritionix/image/upload/v1363458498/attribution_jqfdgy.png'>
