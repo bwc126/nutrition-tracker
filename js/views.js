@@ -48,7 +48,7 @@ var activeListView;
 
   })
   ItemView = Backbone.View.extend({
-    tagName: 'li', // name of tag to be created
+    tagName: 'tr', // name of tag to be created
   // ItemViews now respond to two clickable actions for each Item: swap and delete.
     events: {
       'click span.save':  'save',
@@ -61,7 +61,7 @@ var activeListView;
     },
   // render() now includes two extra spans corresponding to the actions swap and delete.
     render: function(){
-      $(this.el).html('<span style="color:black;">'+this.model.get('name')+' '+this.model.get('cals')+'</span> &nbsp; &nbsp; <span class="save" style="font-family:sans-serif; color:blue; cursor:pointer;">[SAVE]</span>');
+      $(this.el).html('<td style="color:black;">'+this.model.get('name')+' '+this.model.get('cals')+'</td> &nbsp; &nbsp; <td class="save" style="font-family:sans-serif; color:blue; cursor:pointer;">[SAVE]</td>');
       return this; // for chainable calls, like .render().el
     },
   // unrender(): Makes Model remove itself from the DOM.
@@ -78,10 +78,10 @@ var activeListView;
     }
   });
   StorageItemView = Backbone.View.extend({
-    tagName: 'li', // name of tag to be created
+    tagName: 'tr', // name of tag to be created
   // ItemViews now respond to two clickable actions for each Item: swap and delete.
     events: {
-      'click span.remove':  'remove',
+      'click td.remove':  'remove',
     },
   // initialize() now binds model change/removal to the corresponding handlers below.
     initialize: function(){
@@ -90,7 +90,7 @@ var activeListView;
     },
   // render() now includes two extra spans corresponding to the actions swap and delete.
     render: function(){
-      $(this.el).html('<span style="color:black;">'+this.model.get('name')+' '+this.model.get('cals')+'</span> &nbsp; &nbsp; <span class="remove" style="font-family:sans-serif; color:blue; cursor:pointer;">[X]</span>');
+      $(this.el).html('<td style="color:black;">'+this.model.get('name')+' '+this.model.get('cals')+'</td> &nbsp; &nbsp; <td class="remove" style="font-family:sans-serif; color:blue; cursor:pointer;">[X]</td>');
       return this; // for chainable calls, like .render().el
     },
   // unrender(): Makes Model remove itself from the DOM.
@@ -146,14 +146,19 @@ var activeListView;
       var Url = "https://api.nutritionix.com/v1_1/search/"+key+"?results=0:20&fields=item_name,brand_name,item_id,nf_calories&appId="+APP_ID+"&appKey="+APP_KEY;
       var req = $.ajax(Url, {
         success: function(response) {
-
+          var food;
+          activeListView.removeAll();
           _(response.hits).each(function(item){
-            var food = new foodItem()
+            food = new foodItem()
             food.set({
               name: item.fields.brand_name + " " + item.fields.item_name,
               cals: item.fields.nf_calories
             });
+
             activeListView.appendItem(food);
+
+            console.log(food);
+
           })
           indicator.unrender();
         }
@@ -161,7 +166,7 @@ var activeListView;
     },
   });
   StorageView = Backbone.View.extend({
-    el: $('body'),
+    el: $('.stored'),
     events: {
       // 'click span.remove' : 'remove'
     },
@@ -171,13 +176,13 @@ var activeListView;
       this.render();
     },
     render: function() {
-
+      this.removeAll();
       var self = this;
       _(this.collection.models).each(function(item) {
         var itemView = self.appendItem(item);
         itemView.bind('remove',self.collection.remove(this));
       });
-      $('ul',self.el).append("<li style='color: green'>Total Calories: "+self.collection.getCals()+"</li>");
+      $(self.el).append("<tr class='green'><td>Total Calories: </td><td>"+self.collection.getCals()+"</td></tr>");
     },
     appendItem: function(item) {
       var self = this;
@@ -187,11 +192,14 @@ var activeListView;
         model: item
       });
       var frag = itemView.render().el;
-      $('ul', this.el).append(frag);
+      $(this.el).append(frag);
 
 
       return itemView;
     },
+    removeAll: function() {
+      $('tr',this.el).remove();
+    }
   });
   TrendsView = Backbone.View.extend({
     el: $('.row','body'),
@@ -206,19 +214,13 @@ var activeListView;
       this.render();
     },
     render: function() {
+      this.removeAll();
       var self = this;
-      var activeDate = $('#calendar').datepicker('getDate');
-      if (!activeDate) {
-        formattedActiveDate = todayFormatted;
-      }
-      else {
-        var formattedActiveDate = activeDate.getMonth() + "-" + activeDate.getDate() + "-" + activeDate.getFullYear();
-      }
       if (!googCharts) {
         $(this.el).append("<li>Google Charts Not Ready</li>")
       }
       else {
-        $(this.el).append("<div class='row'><div class='col-xs-2'></div><div id='chart' class='col-xs-8' style='width:900; height:500'></div><div class='col-xs-2'></div></div>");
+        $('.left',this.el).append("<div id='chart' class='col-xs-12' style='width:900; height:500'></div>");
         var data = new google.visualization.DataTable();
         data.addColumn('string','Date');
         data.addColumn('number','Calories');
@@ -237,6 +239,9 @@ var activeListView;
     },
     unrender: function() {
       $('#chart',this.el).remove();
+    },
+    removeAll: function() {
+      $('tr','.stored').remove();
     }
   })
   // Because the new features (swap and delete) are intrinsic to each Item, there is no need to modify ListView.
@@ -255,9 +260,8 @@ var activeListView;
     },
     render: function() {
       var self = this;
-      $(this.el).append("<button id='saved' class='col-xs-6'>View Saved Items</button>");
-      $(this.el).append("<button id='trends' class='col-xs-6'>View Trends Graph</button>");
-      $(this.el).append("<ul></ul>");
+      $(this.el).prepend("<button id='trends' class='col-xs-6'>View Trends Graph</button>");
+      $(this.el).prepend("<button id='saved' class='col-xs-6'>View Saved Items</button>");
       _(this.collection.models).each(function(item) { // in case collection is not empty
         self.appendItem(item);
       }, this);
@@ -274,32 +278,22 @@ var activeListView;
       var itemView = new ItemView({
         model: item
       });
-      if ($('ul').children().length > 19) {
-
-        this.removeFirst();
+      if ($('tbody').children().length < 21) {
+        $('table', this.el).append(itemView.render().el);
       }
-      $('ul', this.el).append(itemView.render().el);
-    },
-    removeFirst: function() {
-
-      $('ul li:first-child').remove()
     },
     removeAll: function() {
-
-      $('ul li').remove();
+      console.log('removing all');
+      $('tr',this.el).remove();
     },
     renderStorageView: function() {
-      this.removeAll();
       userStorage.date = calendarView.activeDate;
-
       userStorage.retrieve();
-
       var storageView = new StorageView({
         collection: userStorage,
       });
     },
     renderTrendsView: function() {
-      this.removeAll();
       userStorage.date = calendarView.activeDate;
       userStorage.retrieve();
       var trendsView = new TrendsView({
