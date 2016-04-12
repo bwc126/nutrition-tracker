@@ -41,7 +41,6 @@ var activeListView;
         activeDate = moment(rawDate);
       }
       self.activeDate = activeDate.format("MM-DD-YYYY");
-      console.log(self.activeDate);
       userStorage.date = self.activeDate;
 
     }
@@ -51,7 +50,7 @@ var activeListView;
     tagName: 'tr', // name of tag to be created
   // ItemViews now respond to two clickable actions for each Item: swap and delete.
     events: {
-      'click span.save':  'save',
+      'click td.save':  'save',
     },
   // initialize() now binds model change/removal to the corresponding handlers below.
     initialize: function(){
@@ -157,7 +156,6 @@ var activeListView;
 
             activeListView.appendItem(food);
 
-            console.log(food);
 
           })
           indicator.unrender();
@@ -168,12 +166,15 @@ var activeListView;
   StorageView = Backbone.View.extend({
     el: $('.stored'),
     events: {
-      // 'click span.remove' : 'remove'
+
     },
     initialize: function() {
       _.bindAll(this, 'render', 'appendItem');
-
+      var self = this;
       this.render();
+      var coll = this.collection;
+      coll.on('add',self.render,self);
+      coll.on('remove',self.render,self);
     },
     render: function() {
       this.removeAll();
@@ -210,6 +211,7 @@ var activeListView;
     },
     initialize: function() {
       _.bindAll(this,'render');
+      var self = this;
       indicator.render();
       this.render();
     },
@@ -217,10 +219,12 @@ var activeListView;
       this.removeAll();
       var self = this;
       if (!googCharts) {
-        $(this.el).append("<li>Google Charts Not Ready</li>")
+        $(this.el).append("<tr>Google Charts Not Ready</tr>")
       }
       else {
-        $('.left',this.el).append("<div id='chart' class='col-xs-12' style='width:900; height:500'></div>");
+        var self = this;
+        $('.left',this.el).append("<div id='chart' class='col-xs-12' style='width:100%; height:50%'></div>");
+        var width = $('.col-xs-12','.left',self.el)[0].clientWidth;
         var data = new google.visualization.DataTable();
         data.addColumn('string','Date');
         data.addColumn('number','Calories');
@@ -229,7 +233,7 @@ var activeListView;
         data.addRows(rows);
         var options = {
           'title': 'Calories Consumed',
-          'width': 900,
+          'width': width,
           'height': 500
         };
         var chart = new google.visualization.ColumnChart($("#chart")[0]);
@@ -283,7 +287,6 @@ var activeListView;
       }
     },
     removeAll: function() {
-      console.log('removing all');
       $('tr',this.el).remove();
     },
     renderStorageView: function() {
@@ -292,6 +295,7 @@ var activeListView;
       var storageView = new StorageView({
         collection: userStorage,
       });
+
     },
     renderTrendsView: function() {
       userStorage.date = calendarView.activeDate;
