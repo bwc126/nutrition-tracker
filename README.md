@@ -21,6 +21,8 @@ Displays items the user has saved for the current active date (chosen with the c
 ### Trends Graph
 Uses Google Charts to generate a graph of daily calorie consumption for the preceding week, using the active day as the start date, showing calorie totals for each of 6 days prior and the active day.
 
+
+#### Made possible by:
 Bootstrap-datepicker enables a calendar with datepicker functionality:
 https://github.com/eternicode/bootstrap-datepicker
 
