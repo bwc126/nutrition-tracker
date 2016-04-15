@@ -60,7 +60,7 @@ var activeListView;
     },
   // render() now includes two extra spans corresponding to the actions swap and delete.
     render: function(){
-      $(this.el).html('<td style="color:black;">'+this.model.get('name')+' '+this.model.get('cals')+'</td> &nbsp; &nbsp; <td class="save" style="font-family:sans-serif; color:blue; cursor:pointer;">[SAVE]</td>');
+      $(this.el).html('<td>'+this.model.get('name')+' '+this.model.get('cals')+'</td> &nbsp; &nbsp; <td class="save green" style="font-family:sans-serif; cursor:pointer;">[SAVE]</td>');
       return this; // for chainable calls, like .render().el
     },
   // unrender(): Makes Model remove itself from the DOM.
@@ -89,7 +89,7 @@ var activeListView;
     },
   // render() now includes two extra spans corresponding to the actions swap and delete.
     render: function(){
-      $(this.el).html('<td style="color:black;">'+this.model.get('name')+' '+this.model.get('cals')+'</td> &nbsp; &nbsp; <td class="remove" style="font-family:sans-serif; color:blue; cursor:pointer;">[X]</td>');
+      $(this.el).html('<td>'+this.model.get('name')+' '+this.model.get('cals')+'</td> &nbsp; &nbsp; <td class="remove red" style="font-family:sans-serif; cursor:pointer;">[X]</td>');
       return this; // for chainable calls, like .render().el
     },
   // unrender(): Makes Model remove itself from the DOM.
@@ -234,7 +234,8 @@ var activeListView;
         var options = {
           'title': 'Calories Consumed',
           'width': width,
-          'height': 500
+          'height': 500,
+          'backgroundColor': 'dimgrey'
         };
         var chart = new google.visualization.ColumnChart($("#chart")[0]);
         chart.draw(data,options);
@@ -282,7 +283,7 @@ var activeListView;
       var itemView = new ItemView({
         model: item
       });
-      if ($('tbody').children().length < 21) {
+      if ($('tbody',this.el).children().length < 21) {
         $('table', this.el).append(itemView.render().el);
       }
     },
