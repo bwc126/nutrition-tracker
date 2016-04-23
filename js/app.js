@@ -10,20 +10,20 @@ var searchView;
 var indicatorView;
 var listView;
 var calendarView;
-
+// Wrap our code in the Jquery object, so it executes only once Jquery is ready
 (function($){
-searchView = new SearchView();
-indicatorView = new IndicatorView();
-listView = new ListView();
-activeListView = listView;
-indicator = indicatorView;
-
-calendarView = new CalendarView();
-userStorage = new Saved(calendarView.activeDate);
-if (!storage.getItem(calendarView.activeDate)) {
-  userStorage.set([]);
-}
-else {
-  userStorage.retrieve();
-}
+  // Instantiate search, indicator, list, calendar and user storage, loading any data saved within the browser
+  searchView = new SearchView();
+  indicatorView = new IndicatorView();
+  listView = new ListView();
+  activeListView = listView;
+  indicator = indicatorView;
+  calendarView = new CalendarView();
+  userStorage = new Saved(calendarView.activeDate);
+  if (!storage.getItem(calendarView.activeDate)) {
+    userStorage.set([]);
+  }
+  else {
+    userStorage.retrieve();
+  }
 })(jQuery);

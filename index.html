@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Nutrition Tracker</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-datepicker3.standalone.min.css">
     <link rel="stylesheet" href="css/styles.css">
   </head>
 
   <body>
+    <!-- Calendar and storage view -->
     <div class='row'>
-      <div class='left col-xs-6'>
+      <div class='left col-md-6 col-xs-12'>
         <div id="calendar"></div>
         <table class='stored'></table>
       </div>
-      <div class='col-xs-6 form'>
-        <input type="text" placeholder="Search" class='col-xs-11'>
-        <img src="img/ajax-loader.gif" height="36" width="66">
+      <!-- Search and list area -->
+      <div class='col-md-6 col-xs-12 form'>
+        <input type="text" placeholder="Search" class='col-md-10 col-xs-11'>
+        <img src="img/ajax-loader.gif" alt='Loading Indicator' class='col-md-2 col-xs-1' height="36" width="114">
       <table></table>
       </div>
     </div>
-  </body>
+  <!-- Nutritionix logo -->
   <footer>
     <a href='http://www.nutritionix.com/api'>
-      <img src='https://d3jpl91pxevbkh.cloudfront.net/nutritionix/image/upload/v1363458498/attribution_jqfdgy.png'>
+      <img src='https://d3jpl91pxevbkh.cloudfront.net/nutritionix/image/upload/v1363458498/attribution_jqfdgy.png' alt='Nutritionix Logo'>
     </a>
   </footer>
+  <!-- Scripts -->
   <script src="js/vendor/jQuery.js"></script>
   <script src="js/vendor/underscore-min.js"></script>
   <script src="js/vendor/bootstrap.min.js"></script>
@@ -35,10 +39,12 @@
   <script src="js/views.js"></script>
   <script src="js/app.js"></script>
   <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <!-- Load google charts -->
   <script>
       google.charts.load('current',{'packages':['corechart']});
       google.charts.setOnLoadCallback(function() {
         googCharts = true;
       })
   </script>
+  </body>
 </html>
