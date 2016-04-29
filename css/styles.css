@@ -3,58 +3,76 @@ body {
   color: white;
   background-color: dimgrey;
 }
+
 input {
   color: black;
-  margin: 1% 0 1% 0;
+  margin: 1% 0;
 }
+
 img {
   padding: 1% 0 0 0;
 }
+
 table {
   width: 100%;
   color: white;
 }
+
 .green {
   color: lime;
 }
+
 .red {
   color: red;
 }
+
 /*Search and list*/
 button.col-xs-6 {
   margin: 1% 0 0 0;
   font-size: 90%;
   background-color: dimgrey;
 }
+
 .form {
   padding: 0 3% 0 0;
 }
-.form td,.stored td {
+
+.form td,
+.stored td {
   padding: 0 0 0 1%;
 }
-.form table,table.stored {
+
+.form table,
+table.stored {
   border: solid black;
   border-width: 0 1px;
   width: 100%;
   color: white;
   margin: 1% 0% 1% 3%;
 }
+
 /*Calendar and Saved items */
 .datepicker.datepicker-inline {
   width: 100%;
 }
+
 .datepicker table tr td.day:hover {
   background-color: lime;
 }
+
 .datepicker table tr td.today {
   background-color: #FF4900;
 }
+
 .left {
   padding: 0 3% 0 1%;
 }
-.stored tr:nth-child(2n),.form tr:nth-child(2n) {
+
+.stored tr:nth-child(2n),
+.form tr:nth-child(2n) {
   background-color: darkgrey;
 }
+
 /*Footer logo*/
 footer a {
   position: absolute;
