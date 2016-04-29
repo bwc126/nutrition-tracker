@@ -65,6 +65,7 @@ var activeListView;
     // Render uses jquery to place a tag on the page and edit its html in place to display the food item's name and calorie content
     render: function(){
       $(this.el).html('<td>'+this.model.get('name')+' '+this.model.get('cals')+'</td> &nbsp; &nbsp; <td class="save green" style="font-family:sans-serif; cursor:pointer;">[SAVE]</td>');
+
       return this;
     },
     // Unrender uses jquery to simply retrieve and remove the item from the page
@@ -74,6 +75,7 @@ var activeListView;
     // Save the present item to user storage
     save: function(){
       userStorage.add(this.model);
+      activeListView.removeAll();
     },
     // Destroys the corresponding model for this food item view
     remove: function(){
@@ -168,12 +170,16 @@ var activeListView;
               name: item.fields.brand_name + " " + item.fields.item_name,
               cals: item.fields.nf_calories
             });
-
             activeListView.appendItem(food);
+          });
 
-
-          })
           indicator.unrender();
+        },
+        error: function(error, status, thrown) {
+          if (!thrown) {
+            thrown = "description unavailable";
+          };
+          alert(status +"\nDescription: " + thrown);
         }
       });
     },
@@ -313,12 +319,15 @@ var activeListView;
       this.collection.add(item);
     },
     appendItem: function(item) {
+      var self = this;
       var itemView = new ItemView({
         model: item
       });
+
       if ($('tbody',this.el).children().length < 21) {
         $('table', this.el).append(itemView.render().el);
-      }
+      };
+
     },
     removeAll: function() {
       $('tr',this.el).remove();
