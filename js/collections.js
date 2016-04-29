@@ -1,5 +1,5 @@
 'use strict';
-
+// The app's collections are implemented here
 var Results;
 var Search;
 var Saved;
@@ -10,7 +10,7 @@ var userStorage;
   Results = Backbone.Collection.extend({
     model: foodItem
   });
-  // Search is a colleciton of all previously used search terms, including the partials. Not used for much at the moment. This has no way of persisting currently. 
+  // Search is a colleciton of all previously used search terms, including the partials. Not used for much at the moment. This has no way of persisting currently.
   Search = Backbone.Collection.extend({
     model: searchTerm
   });

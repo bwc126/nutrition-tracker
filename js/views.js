@@ -1,5 +1,5 @@
 'use strict';
-
+// All of the app's views are implemented here. 
 var CalendarView;
 var ItemView;
 var StorageItemView;

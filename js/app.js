@@ -1,5 +1,5 @@
 'use strict';
-
+// The main app instantiates the needed views and collections for the app to work. 
 var APP_ID='0c63dc0a';
 var APP_KEY='77e404c364eba040b8dcf4113d32de0e';
 var storage = localStorage;
