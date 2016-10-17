@@ -1,5 +1,5 @@
 'use strict';
-// All of the app's views are implemented here. 
+// All of the app's views are implemented here.
 var CalendarView;
 var ItemView;
 var StorageItemView;
@@ -51,10 +51,10 @@ var activeListView;
   });
   // When our search query to nutritionix returns, ItemView is how those individual items are shown
   ItemView = Backbone.View.extend({
-    tagName: 'tr', // name of tag to be created
+    tagName: 'row', // name of tag to be created
     // When the 'save' area is clicked, the corresponding item should be saved to user storage
     events: {
-      'click td.save':  'save',
+      'click button.save':  'save',
     },
     // To initialize the item, we need only make bindings between the keyword 'this' and each function where it'll be used, as well as between the bootstrap events of change to or removal of the model and corresponding render/unrender functions, respectively
     initialize: function(){
@@ -64,7 +64,7 @@ var activeListView;
     },
     // Render uses jquery to place a tag on the page and edit its html in place to display the food item's name and calorie content
     render: function(){
-      $(this.el).html('<td>'+this.model.get('name')+' '+this.model.get('cals')+'</td> &nbsp; &nbsp; <td class="save green" style="font-family:sans-serif; cursor:pointer;">[SAVE]</td>');
+      $(this.el).html('<div>'+this.model.get('name')+' '+this.model.get('cals')+'</div> &nbsp; &nbsp; <button class="save green" style="font-family:sans-serif; cursor:pointer;">[SAVE]</button>');
 
       return this;
     },
