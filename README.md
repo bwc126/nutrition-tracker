@@ -31,3 +31,10 @@ http://www.nutritionix.com/api
 
 AJAX loading indicator made with:
 http://www.ajaxload.info/
+
+#### To-Do
+
+- Refactor code to be more readable, usable, modular. Use a combination of functional (for processing) and OOP (for the DOM) approaches. Break long function calls into pieces, use variables where possible, etc.
+- Improve aesthetics, responsiveness.
+- Add new nutrient info sources, recording them as well.
+- Add new visualization options, perhaps use J3.
