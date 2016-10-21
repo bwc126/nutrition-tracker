@@ -54,7 +54,7 @@ var activeListView;
     tagName: 'row', // name of tag to be created
     // When the 'save' area is clicked, the corresponding item should be saved to user storage
     events: {
-      'click button.save':  'save',
+      'click button':  'save',
     },
     // To initialize the item, we need only make bindings between the keyword 'this' and each function where it'll be used, as well as between the bootstrap events of change to or removal of the model and corresponding render/unrender functions, respectively
     initialize: function(){
@@ -64,7 +64,7 @@ var activeListView;
     },
     // Render uses jquery to place a tag on the page and edit its html in place to display the food item's name and calorie content
     render: function(){
-      $(this.el).html('<div>'+this.model.get('name')+' '+this.model.get('cals')+'</div> &nbsp; &nbsp; <button class="save green" style="font-family:sans-serif; cursor:pointer;">[SAVE]</button>');
+      $(this.el).html('<div>'+this.model.get('name')+' '+this.model.get('cals')+'</div> &nbsp; &nbsp; <button class="btn btn-success" style="font-family:sans-serif; cursor:pointer;">Save</button>');
 
       return this;
     },
@@ -87,7 +87,7 @@ var activeListView;
     tagName: 'tr', // Each stored item will get its own table row
     // Remove this item from the user's storage when the user clicks on the table cell with the big red 'X'
     events: {
-      'click td.remove':  'remove',
+      'click button':  'remove',
     },
     // To initialize the item, we need only make bindings between the keyword 'this' and each function where it'll be used, as well as between the bootstrap event of removal of the model and the corresponding unrender function
     initialize: function(){
@@ -96,7 +96,7 @@ var activeListView;
     },
     // Render uses jquery to place a tag on the page and edit its html in place to display the food item's name and calorie content
     render: function(){
-      $(this.el).html('<td>'+this.model.get('name')+' '+this.model.get('cals')+'</td> &nbsp; &nbsp; <td class="remove red" style="font-family:sans-serif; cursor:pointer;">[X]</td>');
+      $(this.el).html('<div>'+this.model.get('name')+' '+this.model.get('cals')+'</div> &nbsp; &nbsp; <button class="btn btn-danger" style="font-family:sans-serif; cursor:pointer;">Delete</button>');
       return this;
     },
 
