@@ -51,10 +51,10 @@ var activeListView;
   });
   // When our search query to nutritionix returns, ItemView is how those individual items are shown
   ItemView = Backbone.View.extend({
-    tagName: 'row', // name of tag to be created
+    tagName: 'div', // name of tag to be created
     // When the 'save' area is clicked, the corresponding item should be saved to user storage
     events: {
-      'click button':  'save',
+      'click button.btn-success':  'save',
     },
     // To initialize the item, we need only make bindings between the keyword 'this' and each function where it'll be used, as well as between the bootstrap events of change to or removal of the model and corresponding render/unrender functions, respectively
     initialize: function(){
@@ -84,10 +84,10 @@ var activeListView;
   });
   // Once a food item has been saved to the user's collection, StorageItemView is how they're displayed within the user storage view area
   StorageItemView = Backbone.View.extend({
-    tagName: 'tr', // Each stored item will get its own table row
+    tagName: 'div', // Each stored item will get its own table row
     // Remove this item from the user's storage when the user clicks on the table cell with the big red 'X'
     events: {
-      'click button':  'remove',
+      'click button.btn-danger':  'remove',
     },
     // To initialize the item, we need only make bindings between the keyword 'this' and each function where it'll be used, as well as between the bootstrap event of removal of the model and the corresponding unrender function
     initialize: function(){
@@ -283,7 +283,7 @@ var activeListView;
     },
     // removeAll is virtually identical to the function of the same name within the StorageView class, removing any table rows within the div with the 'stored' class.
     removeAll: function() {
-      $('tr','.stored').remove();
+      $('div','.stored').remove();
     }
   })
   // ListView is the core of the app, and as such, acts as a parent view for the others, in addition to generating the list of results from a search.
@@ -304,8 +304,8 @@ var activeListView;
     // render adds buttons for the TrendsView and Saved view to the page,
     render: function() {
       var self = this;
-      $(this.el).prepend("<button id='trends' class='col-xs-6'>View Trends Graph</button>");
-      $(this.el).prepend("<button id='saved' class='col-xs-6'>View Saved Items</button>");
+      $(this.el).prepend("<button id='trends' class='col-xs-5 btn btn-primary'>View Trends Graph</button>");
+      $(this.el).prepend("<button id='saved' class='col-xs-5 btn btn-primary'>View Saved Items</button>");
       _(this.collection.models).each(function(item) {
         self.appendItem(item);
       }, this);
@@ -333,12 +333,13 @@ var activeListView;
       $('tr',this.el).remove();
     },
     renderStorageView: function() {
-      userStorage.date = calendarView.activeDate;
-      userStorage.retrieve();
-      var storageView = new StorageView({
-        collection: userStorage,
-      });
-
+      if (!$('.stored').children().length) {
+        userStorage.date = calendarView.activeDate;
+        userStorage.retrieve();
+        var storageView = new StorageView({
+          collection: userStorage,
+        });
+      }
     },
     renderTrendsView: function() {
       userStorage.date = calendarView.activeDate;
