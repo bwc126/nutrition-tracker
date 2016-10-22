@@ -84,7 +84,7 @@ var activeListView;
   });
   // Once a food item has been saved to the user's collection, StorageItemView is how they're displayed within the user storage view area
   StorageItemView = Backbone.View.extend({
-    tagName: 'div', // Each stored item will get its own table row
+    tagName: 'div', // Each stored item will get its own div
     // Remove this item from the user's storage when the user clicks on the table cell with the big red 'X'
     events: {
       'click button.btn-danger':  'remove',
@@ -228,7 +228,7 @@ var activeListView;
   });
   // TrendsView uses google charts to generate a graph of the week's calorie consumption on a daily basis. This view could easily be extended to include multiple-week, month, or yearly trend graphs.
   TrendsView = Backbone.View.extend({
-    el: $('.row','body'),
+    el: $('.row'),
     events: {
       'click #calendar': 'render',
       'click #saved': 'unrender',
@@ -295,7 +295,7 @@ var activeListView;
       'click button#trends': 'renderTrendsView'
     },
     initialize: function() {
-      _.bindAll(this, 'render', 'addItem', 'appendItem'); // every function that uses 'this' as the current object should be in here
+      _.bindAll(this, 'render', 'addItem', 'appendItem', 'removeAll'); // every function that uses 'this' as the current object should be in here
       this.collection = new Results();
       this.collection.bind('add', this.appendItem); // collection event binder
 
@@ -324,8 +324,8 @@ var activeListView;
         model: item
       });
 
-      if ($('tbody',this.el).children().length < 21) {
-        $('table', this.el).append(itemView.render().el);
+      if ($('.results').children().length < 21) {
+        $('.results').append(itemView.render().el);
       };
 
     },
