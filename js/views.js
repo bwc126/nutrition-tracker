@@ -186,8 +186,8 @@ var activeListView;
   });
   // StorageView is the window for displaying food items the user has added to their collection
   StorageView = Backbone.View.extend({
-    // our prototypical element will be a div (natively in index.html) with the class 'stored'
-    el: $('.stored'),
+    // our prototypical element will be a div (natively in index.html) with the id 'storage'
+    el: $('#storage'),
     events: {
     },
     // initialize binds the keyword 'this' to appropriate functions, renders the storage view (including any items the user has saved for the currently active day) and then binds add/remove events for the user's collection of saved items for the day to the render function for the storage view, so the view updates whenever the user's collection changes.
@@ -228,7 +228,7 @@ var activeListView;
   });
   // TrendsView uses google charts to generate a graph of the week's calorie consumption on a daily basis. This view could easily be extended to include multiple-week, month, or yearly trend graphs.
   TrendsView = Backbone.View.extend({
-    el: $('.left'),
+    el: $('#graph'),
     events: {
       'click #calendar': 'render',
       'click #saved': 'unrender',
@@ -256,7 +256,9 @@ var activeListView;
         $(this.el).append("<div id='chart' class='col-xs-12' style='width:100%; height:50%'></div>");
 
         // We'll need the width of the parent div, as it's based on the client's active width, ensuring the chart we generate will fit upon generation (at least most of the time).
-        var width = $('.col-xs-12','.left',self.el)[0].clientWidth;
+        var width = $(self.el)[0].clientWidth;
+        var height = $('#calendar').height();
+        console.log(width, height);
         // Here we use google charts to generate the basic unit of our graph: the data, handled much like a table, so we start by adding date/calorie columns.
         var data = new google.visualization.DataTable();
         data.addColumn('string','Date');
@@ -268,7 +270,7 @@ var activeListView;
         var options = {
           'title': 'Calories Consumed',
           'width': width,
-          'height': 500,
+          'height': height,
           'backgroundColor': 'dimgrey'
         };
         // Now we actually create the chart, passing the id of the immediate parent div, then draw it, and finally deactivate the loading indicator
