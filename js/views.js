@@ -192,23 +192,26 @@ var activeListView;
     },
     // initialize binds the keyword 'this' to appropriate functions, renders the storage view (including any items the user has saved for the currently active day) and then binds add/remove events for the user's collection of saved items for the day to the render function for the storage view, so the view updates whenever the user's collection changes.
     initialize: function() {
-      _.bindAll(this, 'render', 'appendItem');
-      var self = this;
+      _.bindAll(this, 'render', 'appendItem', 'removeAll');
       this.render();
+      var self = this;
       var coll = this.collection;
       coll.on('add',self.render,self);
       coll.on('remove',self.render,self);
+      console.log("storageview init");
     },
     // render begins by clearing its html element, (through a call to removeAll) then iterates through each item the user has saved and appends it to the page, finishing the rendering process by adding a calorie total for the active day
     render: function() {
       this.removeAll();
       var self = this;
       var itemView;
+      console.log('rendering storageview');
       _(this.collection.models).each(function(item) {
+        console.log('rendering item');
         itemView = self.appendItem(item);
         itemView.bind('remove',self.collection.remove(this));
       });
-      $(self.el).append("<tr class='green'><td>Total Calories: </td><td>"+self.collection.getCals()+"</td></tr>");
+      $(self.el).append("<div class='green'><div>Total Calories: </div><div>"+self.collection.getCals()+"</div></div>");
     },
     // appendItem is what renders each food item within the user's collection for the day, creating a new StorageItemView for each food item the user has saved, and using jQuery to append it to the page once the fragment has been built with the item's native render function, returning the individual StorageItemView for chaining.
     appendItem: function(item) {
@@ -221,9 +224,9 @@ var activeListView;
       $(this.el).append(frag);
       return itemView;
     },
-    // removeAll, unsurprisingly, clears all table row items found within the parent element for the StorageView (the .stored div)
+    // removeAll, unsurprisingly, clears all table row items found within the parent element for the StorageView (the #storage div)
     removeAll: function() {
-      $('tr',this.el).remove();
+      $(this.el).children().remove();
     }
   });
   // TrendsView uses google charts to generate a graph of the week's calorie consumption on a daily basis. This view could easily be extended to include multiple-week, month, or yearly trend graphs.
@@ -290,7 +293,7 @@ var activeListView;
   })
   // ListView is the core of the app, and as such, acts as a parent view for the others, in addition to generating the list of results from a search.
   ListView = Backbone.View.extend({
-    el: $('.form'), // the basic element of the ListView is the .form class div
+    el: $('.search'), // the basic element of the ListView is the .form class div
     // Two buttons--saved and trends--will effectively give this
     events: {
       'click button#saved': 'renderStorageView',
@@ -306,8 +309,8 @@ var activeListView;
     // render adds buttons for the TrendsView and Saved view to the page,
     render: function() {
       var self = this;
-      $(this.el).prepend("<button id='trends' class='col-xs-5 btn btn-primary'>View Trends Graph</button>");
-      $(this.el).prepend("<button id='saved' class='col-xs-5 btn btn-primary'>View Saved Items</button>");
+      $('.buttons').prepend("<button id='trends' class='col-xs-3 btn btn-primary'>View Trends Graph</button>");
+      $('.buttons').prepend("<button id='saved' class='col-xs-3 btn btn-primary'>View Saved Items</button>");
       _(this.collection.models).each(function(item) {
         self.appendItem(item);
       }, this);
@@ -335,13 +338,12 @@ var activeListView;
       $('tr',this.el).remove();
     },
     renderStorageView: function() {
-      if (!$('.stored').children().length) {
-        userStorage.date = calendarView.activeDate;
-        userStorage.retrieve();
-        var storageView = new StorageView({
-          collection: userStorage,
-        });
-      }
+      userStorage.date = calendarView.activeDate;
+      userStorage.retrieve();
+      var storageView = new StorageView({
+        collection: userStorage,
+      });
+
     },
     renderTrendsView: function() {
       userStorage.date = calendarView.activeDate;
