@@ -335,7 +335,7 @@ var activeListView;
       $('tr',this.el).remove();
     },
     renderStorageView: function() {
-      if (!$('.stored').children().length) {
+      if (!$('#storage').children().length) {
         userStorage.date = calendarView.activeDate;
         userStorage.retrieve();
         var storageView = new StorageView({
