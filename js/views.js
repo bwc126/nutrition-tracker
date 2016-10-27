@@ -150,14 +150,15 @@ var activeListView;
     // search, when triggered by a keyup event in the input field, takes the current value in the field and calls getResults with it (after activating the indicator which shows a search is in progress).
     search: function() {
       var key = this.$el.val();
-      var search = new searchTerm();
-      search.set({term: key})
+      var search = key;
+      // search.set({term: key});
       indicator.render();
       this.getResults(key);
       return search;
     },
     getResults: function(key) {
       // Here we prepare the primary component of the nutritionix API key, the url request, including our search term, application ID and key as required by nutrionix' terms of use
+      console.log('getting results....');
       var Url = "https://api.nutritionix.com/v1_1/search/"+key+"?results=0:20&fields=item_name,brand_name,item_id,nf_calories&appId="+APP_ID+"&appKey="+APP_KEY;
       var req = $.ajax(Url, {
         success: function(response) {
@@ -259,7 +260,7 @@ var activeListView;
         $(this.el).append("<div id='chart' class='col-xs-12' style='width:100%; height:50%'></div>");
 
         // We'll need the width of the parent div, as it's based on the client's active width, ensuring the chart we generate will fit upon generation (at least most of the time).
-        var width = $(self.el)[0].clientWidth;
+        var width = $(self.el)[0].clientWidth*0.90;
         var height = $('#calendar').height();
         console.log(width, height);
         // Here we use google charts to generate the basic unit of our graph: the data, handled much like a table, so we start by adding date/calorie columns.
@@ -305,7 +306,7 @@ var activeListView;
       this.collection.bind('add', this.appendItem); // collection event binder
 
       this.render();
-  
+
     },
     // render adds buttons for the TrendsView and Saved view to the page,
     render: function() {
@@ -336,7 +337,7 @@ var activeListView;
 
     },
     removeAll: function() {
-      $('tr',this.el).remove();
+      $('.results').children().remove();
     },
     renderStorageView: function() {
       userStorage.date = calendarView.activeDate;
