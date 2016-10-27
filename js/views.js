@@ -305,6 +305,7 @@ var activeListView;
       this.collection.bind('add', this.appendItem); // collection event binder
 
       this.render();
+  
     },
     // render adds buttons for the TrendsView and Saved view to the page,
     render: function() {
