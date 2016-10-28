@@ -27,4 +27,5 @@ var calendarView;
     userStorage.retrieve();
   }
   
+
 })(jQuery);

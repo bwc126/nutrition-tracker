@@ -1,5 +1,7 @@
 /*Whole page styles*/
 body {
+
+  margin: 3%;
   color: white;
   background-color: dimgrey;
 }
@@ -13,15 +15,6 @@ img {
   padding: 1% 0 0 0;
 }
 
-table {
-  width: 100%;
-  color: white;
-}
-
-.red {
-  color: red;
-}
-
 /*Search and list*/
 button.col-xs-6 {
   margin: 1% 0 0 0;
@@ -30,7 +23,7 @@ button.col-xs-6 {
 }
 
 .form {
-  padding: 0 3% 0 0;
+  padding: 0;
 }
 
 .form td,

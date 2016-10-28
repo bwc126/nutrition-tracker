@@ -260,7 +260,7 @@ var activeListView;
         $(this.el).append("<div id='chart' class='col-xs-12' style='width:100%; height:50%'></div>");
 
         // We'll need the width of the parent div, as it's based on the client's active width, ensuring the chart we generate will fit upon generation (at least most of the time).
-        var width = $(self.el)[0].clientWidth*0.90;
+        var width = $(self.el)[0].clientWidth*0.9;
         var height = $('#calendar').height();
         console.log(width, height);
         // Here we use google charts to generate the basic unit of our graph: the data, handled much like a table, so we start by adding date/calorie columns.
@@ -304,9 +304,7 @@ var activeListView;
       _.bindAll(this, 'render', 'addItem', 'appendItem', 'removeAll'); // every function that uses 'this' as the current object should be in here
       this.collection = new Results();
       this.collection.bind('add', this.appendItem); // collection event binder
-
       this.render();
-
     },
     // render adds buttons for the TrendsView and Saved view to the page,
     render: function() {
