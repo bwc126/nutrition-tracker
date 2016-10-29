@@ -212,7 +212,7 @@ var activeListView;
         itemView = self.appendItem(item);
         itemView.bind('remove',self.collection.remove(this));
       });
-      $(self.el).append("<div class='green'><div>Total Calories: </div><div>"+self.collection.getCals()+"</div></div>");
+      $(self.el).append("<div class='panel-footer'><div>Total Calories: </div><div>"+self.collection.getCals()+"</div></div>");
     },
     // appendItem is what renders each food item within the user's collection for the day, creating a new StorageItemView for each food item the user has saved, and using jQuery to append it to the page once the fragment has been built with the item's native render function, returning the individual StorageItemView for chaining.
     appendItem: function(item) {
