@@ -44,10 +44,18 @@ table.stored {
 /*Calendar and Saved items */
 .datepicker.datepicker-inline {
   width: 100%;
+  color: black;
+}
+
+
+.datepicker table tr td.day {
+
+  color: black;
+
 }
 
 .datepicker table tr td.day:hover {
-  background-color: lime;
+  background-color: dodgerblue;
 }
 
 .datepicker table tr td.today {
