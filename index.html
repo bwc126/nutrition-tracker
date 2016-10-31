@@ -15,9 +15,14 @@
   <body>
     <!-- Calendar and storage view -->
     <div class='row'>
-      <div class='left col-md-3 panel'>
-        <div id='storage' class='panel-body'></div>
+      <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class='left col-md-3 panel'>
+          <div id='storage' class='panel-body'></div>
+        </div>
+
       </div>
+      <span onclick="openNav()">open</span>
       <!-- Search and list area -->
       <div class='col-md-9 form'>
         <div class="row panel">
