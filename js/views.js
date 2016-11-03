@@ -297,7 +297,7 @@ var activeListView;
     el: $('.search'), // the basic element of the ListView is the .form class div
     // Two buttons--saved and trends--will effectively give this
     events: {
-      'click button#saved': 'renderStorageView',
+      'click .openbtn': 'renderStorageView',
       'click button#trends': 'renderTrendsView'
     },
     initialize: function() {
@@ -310,7 +310,7 @@ var activeListView;
     render: function() {
       var self = this;
       $('.buttons').prepend("<button id='trends' class='col-xs-3 btn btn-primary'>View Trends Graph</button>");
-      $('.buttons').prepend("<button id='saved' class='col-xs-3 btn btn-primary'>View Saved Items</button>");
+      $('.buttons').prepend("<span class='openbtn' onclick='openNav()'><i class='fa fa-archive fa-3x' aria-hidden='true'></i></span>");
       _(this.collection.models).each(function(item) {
         self.appendItem(item);
       }, this);
