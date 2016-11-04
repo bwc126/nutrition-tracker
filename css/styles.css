@@ -22,7 +22,7 @@ body {
   top: 0;
   left: 0;
   background-color: #111; /* Black*/
-  overflow-x: hidden; /* Disable horizontal scroll */
+  overflow-x: scroll; /* Enable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
   transition: 0.6s; /* 0.6 second transition effect to slide in the sidenav */
 

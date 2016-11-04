@@ -29,7 +29,7 @@ var calendarView;
 
 
 })(jQuery);
-
+// TODO: Implement translation-based storage menu transition, rather than width-based animation
 /* Set the width of the side navigation to 250px */
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
@@ -39,3 +39,11 @@ function openNav() {
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
 }
+
+$(':not(#storage div,button)').click(function() {
+  console.log('triggered');
+  if ($("#mySidenav").width() === 250) {
+    console.log('super triggered');
+    closeNav();
+  }
+})
