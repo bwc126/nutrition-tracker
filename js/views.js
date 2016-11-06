@@ -51,7 +51,7 @@ var activeListView;
   });
   // When our search query to nutritionix returns, ItemView is how those individual items are shown
   ItemView = Backbone.View.extend({
-    tagName: 'div', // name of tag to be created
+    tagName: 'button', // name of tag to be created
     // When the 'save' area is clicked, the corresponding item should be saved to user storage
     events: {
       'click button.btn-success':  'save',
@@ -64,7 +64,7 @@ var activeListView;
     },
     // Render uses jquery to place a tag on the page and edit its html in place to display the food item's name and calorie content
     render: function(){
-      $(this.el).html('<div>'+this.model.get('name')+' '+this.model.get('cals')+'</div> &nbsp; &nbsp; <button class="btn btn-success" style="font-family:sans-serif; cursor:pointer;">Save</button>');
+      $(this.el).html('<button class="btn btn-success">'+this.model.get('name')+' '+this.model.get('cals')+'&nbsp; &nbsp; </button>');
 
       return this;
     },
