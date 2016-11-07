@@ -7,8 +7,6 @@ body {
 }
 .openbtn {
 
-  z-index: 1;
-  position: fixed;
   color: dodgerblue;
 
 }

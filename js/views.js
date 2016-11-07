@@ -51,7 +51,7 @@ var activeListView;
   });
   // When our search query to nutritionix returns, ItemView is how those individual items are shown
   ItemView = Backbone.View.extend({
-    tagName: 'button', // name of tag to be created
+    tagName: 'div', // name of tag to be created
     // When the 'save' area is clicked, the corresponding item should be saved to user storage
     events: {
       'click button.btn-success':  'save',

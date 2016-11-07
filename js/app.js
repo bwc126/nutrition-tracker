@@ -41,9 +41,7 @@ function closeNav() {
 }
 
 $(':not(#storage div,button)').click(function() {
-  console.log('triggered');
   if ($("#mySidenav").width() === 250) {
-    console.log('super triggered');
     closeNav();
   }
 })
