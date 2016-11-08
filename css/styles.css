@@ -47,10 +47,16 @@ img {
 }
 
 /*Search and list*/
-button.col-xs-6 {
+/*button.col-xs-6 {
   margin: 1% 0 0 0;
   font-size: 90%;
   background-color: dimgrey;
+}*/
+
+.results .btn-success {
+
+  width: 66%;
+
 }
 
 .form {
