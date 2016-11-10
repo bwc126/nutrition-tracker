@@ -5,11 +5,20 @@ body {
   color: white;
   background-color: dimgrey;
 }
-.openbtn {
+.openbtn i {
 
   color: dodgerblue;
+  margin: 0 3%;
+  position: relative;
 
 }
+
+.buttons {
+
+  margin: 0.3% 0;
+
+}
+
 /* The side navigation menu */
 .sidenav {
 
@@ -56,7 +65,7 @@ img {
 
 .results .btn-success {
 
-  width: 66%;
+  width: 99%;
   margin: 0.3%;
 
 }
