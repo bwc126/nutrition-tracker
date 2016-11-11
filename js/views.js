@@ -298,7 +298,7 @@ var activeListView;
     // Two buttons--saved and trends--will effectively give this
     events: {
       'click .openbtn': 'renderStorageView',
-      'click button#trends': 'renderTrendsView'
+      'click .graphbtn': 'renderTrendsView'
     },
     initialize: function() {
       _.bindAll(this, 'render', 'addItem', 'appendItem', 'removeAll'); // every function that uses 'this' as the current object should be in here
@@ -309,7 +309,7 @@ var activeListView;
     // render adds buttons for the TrendsView and Saved view to the page,
     render: function() {
       var self = this;
-      $('.buttons').prepend("<button id='trends' class='col-xs-3 btn btn-primary'>View Trends Graph</button>");
+      $('.buttons').prepend("<span class='graphbtn'><i class='fa fa-bar-chart fa-3x' aria-hidden='true'></i></span>");
       $('.buttons').prepend("<span class='openbtn' onclick='openNav()'><i class='fa fa-archive fa-3x' aria-hidden='true'></i></span>");
       _(this.collection.models).each(function(item) {
         self.appendItem(item);
