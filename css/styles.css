@@ -29,7 +29,8 @@ i {
   z-index: 2; /* Stay on top */
   top: 0;
   left: 0;
-  background-color: #111; /* Black*/
+  background-color: #666; /* Black*/
+  border-right: solid 1px #333;
   overflow-x: scroll; /* Enable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
   transition: 0.6s; /* 0.6 second transition effect to slide in the sidenav */
@@ -39,6 +40,7 @@ i {
 /* Position and style the close button (top right corner) */
 .sidenav .closebtn {
 
+  color: dodgerblue;
   position: absolute;
   top: 0;
   right: 25px;

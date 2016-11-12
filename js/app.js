@@ -10,6 +10,7 @@ var searchView;
 var indicatorView;
 var listView;
 var calendarView;
+var nav;
 // Wrap our code in the Jquery object, so it executes only once Jquery is ready
 (function($){
   // Instantiate search, indicator, list, calendar and user storage, loading any data saved within the browser
@@ -33,15 +34,11 @@ var calendarView;
 /* Set the width of the side navigation to 250px */
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
-}
+
+};
 
 /* Set the width of the side navigation to 0 */
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
-}
 
-$(':not(#storage div,button)').click(function() {
-  if ($("#mySidenav").width() === 250) {
-    closeNav();
-  }
-})
+};
