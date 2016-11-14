@@ -3,7 +3,7 @@ body {
 
   margin: 3%;
   color: white;
-  background-color: dimgrey;
+  background-color: #111;
 }
 
 i {
@@ -29,7 +29,7 @@ i {
   z-index: 2; /* Stay on top */
   top: 0;
   left: 0;
-  background-color: #666; /* Black*/
+  background-color: #111; /* Black*/
   border-right: solid 1px #333;
   overflow-x: scroll; /* Enable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
@@ -88,14 +88,14 @@ table.stored {
 
 .panel div{
 
-  color: dimgrey;
+  color: white;
 
 }
 
 /*Calendar and Saved items */
 .table-condensed {
 
-  background-color: dimgrey;
+  background-color: #333;
 
 }
 
@@ -123,9 +123,16 @@ table.stored {
   padding: 0 3% 0 1%;
 }
 
+.panel {
+
+  background-color: #333;
+
+}
+
 .panel-footer {
 
-  color: dimgrey;
+  color: white;
+  background-color: #333;
 
 }
 
