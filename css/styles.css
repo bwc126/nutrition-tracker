@@ -129,6 +129,12 @@ table.stored {
 
 }
 
+.graph text {
+
+  color: white;
+
+}
+
 .panel-footer {
 
   color: white;

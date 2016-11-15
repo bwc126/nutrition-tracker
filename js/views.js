@@ -275,7 +275,11 @@ var activeListView;
           'title': 'Calories Consumed',
           'width': width,
           'height': height,
-          'backgroundColor': 'dimgrey'
+          'backgroundColor': '#333',
+          'backgroundColor.strokeWidth': '1',
+          'backgroundColor.stroke': '#999',
+          'colors': ['#1e90ff'],
+          'textColor' : 'white'
         };
         // Now we actually create the chart, passing the id of the immediate parent div, then draw it, and finally deactivate the loading indicator
         var chart = new google.visualization.ColumnChart($("#chart")[0]);
