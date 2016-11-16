@@ -279,7 +279,14 @@ var activeListView;
           'backgroundColor.strokeWidth': '1',
           'backgroundColor.stroke': '#999',
           'colors': ['#1e90ff'],
-          'textColor' : 'white'
+          'titleTextStyle' : {
+            color: '#999'
+          },
+          'hAxis' : {
+            textStyle: {
+              color: '#999'
+            }
+          }
         };
         // Now we actually create the chart, passing the id of the immediate parent div, then draw it, and finally deactivate the loading indicator
         var chart = new google.visualization.ColumnChart($("#chart")[0]);
