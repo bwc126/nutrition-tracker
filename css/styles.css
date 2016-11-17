@@ -29,7 +29,7 @@ i {
   z-index: 2; /* Stay on top */
   top: 0;
   left: 0;
-  background-color: #111; /* Black*/
+  background-color: rgba(17,17,17, 0.66); /* Black*/
   border-right: solid 1px #333;
   overflow-x: scroll; /* Enable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
@@ -50,8 +50,13 @@ i {
 }
 
 input {
-  color: black;
+
+  color: white;
   margin: 1% 0;
+  background-color: #333;
+  text-shadow: 0 0 3px white;
+  box-shadow: 0 0 3px white;
+
 }
 
 img {
@@ -70,6 +75,9 @@ img {
 
   width: 99%;
   margin: 0.3%;
+  color: #999;
+  background-color: #333;
+  border-color: #333;
 
 }
 

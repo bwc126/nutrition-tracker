@@ -286,6 +286,16 @@ var activeListView;
             textStyle: {
               color: '#999'
             }
+          },
+          'vAxis' : {
+            textStyle: {
+              color: '#999'
+            }
+          },
+          'legend' : {
+            textStyle: {
+              color: '#999'
+            }
           }
         };
         // Now we actually create the chart, passing the id of the immediate parent div, then draw it, and finally deactivate the loading indicator

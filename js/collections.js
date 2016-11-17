@@ -63,7 +63,7 @@ var userStorage;
         focus.subtract(i, 'day');
 
         self.date = focus.format('MM-DD-YYYY');
-        var dispDate = focus.format('MMMM-DD-YYYY');
+        var dispDate = focus.format('MM-DD-YY');
         self.retrieve();
         total.push([dispDate,self.getCals()]);
 
