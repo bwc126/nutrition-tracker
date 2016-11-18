@@ -20,6 +20,12 @@ i {
 
 }
 
+.box-glow-white {
+
+  box-shadow: 0 0 3px white;
+
+}
+
 /* The side navigation menu */
 .sidenav {
 
@@ -104,14 +110,22 @@ table.stored {
 .table-condensed {
 
   background-color: #333;
+  box-shadow: 0 0 9px white;
 
 }
 
 .datepicker.datepicker-inline {
+
   width: 100%;
   color: black;
+
 }
 
+.datepicker.datepicker-inline th {
+
+  color: #999;
+
+}
 
 .datepicker table tr td.day {
 
@@ -134,12 +148,6 @@ table.stored {
 .panel {
 
   background-color: #333;
-
-}
-
-.graph text {
-
-  color: white;
 
 }
 
