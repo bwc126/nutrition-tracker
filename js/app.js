@@ -33,12 +33,12 @@ var nav;
 // TODO: Implement translation-based storage menu transition, rather than width-based animation
 /* Set the width of the side navigation to 250px */
 function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("mySidenav").style.left = "0";
 
 };
 
 /* Set the width of the side navigation to 0 */
 function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("mySidenav").style.left = "-250px";
 
 };

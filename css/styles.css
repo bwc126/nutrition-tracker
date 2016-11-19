@@ -30,11 +30,11 @@ i {
 .sidenav {
 
   height: 100%; /* 100% Full-height */
-  width: 0; /* 0 width - change this with JavaScript */
-  position: fixed; /* Stay in place */
+  width: 250px; /* 0 width - change this with JavaScript */
+  position: absolute; /* Stay in place */
   z-index: 2; /* Stay on top */
   top: 0;
-  left: 0;
+  left: -250px;
   background-color: rgba(17,17,17, 0.66); /* Black*/
   border-right: solid 1px #333;
   overflow-x: scroll; /* Enable horizontal scroll */
