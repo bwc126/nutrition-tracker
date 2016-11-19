@@ -257,7 +257,7 @@ var activeListView;
       else {
         var self = this;
         // Within the parent div of the view, we create an immediate parent div for the chart proper, reserving width and height on the page to save just a few ms of having to re-position once the chart is ready.
-        $(this.el).append("<div id='chart' class='col-xs-12' style='width:100%; height:50%'></div>");
+        $(this.el).append("<div id='chart' class='col-xs-12 chart' style='width:100%; height:50%'></div>");
 
         // We'll need the width of the parent div, as it's based on the client's active width, ensuring the chart we generate will fit upon generation (at least most of the time).
         var width = $(self.el)[0].clientWidth*0.9;

@@ -110,7 +110,7 @@ table.stored {
 .table-condensed {
 
   background-color: #333;
-  box-shadow: 0 0 9px white;
+  box-shadow: 0 0 6px 3px white;
 
 }
 
@@ -155,6 +155,12 @@ table.stored {
 
   color: white;
   background-color: #333;
+
+}
+
+.chart div {
+
+  box-shadow: 0 0 6px white;
 
 }
 
