@@ -27,6 +27,7 @@ var nav;
   else {
     userStorage.retrieve();
   }
+  // window.setTimeout(activeListView.renderTrendsView(),300);
 
 
 })(jQuery);
