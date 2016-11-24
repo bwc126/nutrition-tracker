@@ -38,3 +38,4 @@ http://www.ajaxload.info/
 - Improve aesthetics, responsiveness.
 - Add new nutrient info sources, recording them as well.
 - Add new visualization options, perhaps use J3.
+- Refactor Calendar/Graph/Storage code to use a single 'active' area above the search area, clicking the icon for any one of them should render that item only and make the others invisible.
