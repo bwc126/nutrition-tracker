@@ -10,6 +10,7 @@ var TrendsView;
 var ListView;
 var indicator;
 var activeListView;
+var JumbotronView;
 
 (function($) {
   // The CalendarView acts as a datepicker, allowing the user to select dates for saving items to, inspecting previously saved items, and generating graphs of weekly trends
@@ -230,6 +231,19 @@ var activeListView;
       $(this.el).children().remove();
     }
   });
+  // JumbotronView will be the home of the graph, storage, and calendar views
+  JumbotronView = Backbone.View.extend({
+    // Our parent element for the Jumbotron view will be an html tag with the jumbotron ID.
+    el: $('#jumbotron'),
+    // The events will need to change the 'in-focus' view when the corresponding button is pressed.
+    events: {},
+    // Prepares the element and the view by setting an initial focus and setting everything up that backbone needs
+    initialize: function() {},
+    // Makes sure the view and all sub-views are rendered
+    render: function() {},
+    // Changes focus to the parameter by setting all others to 'display: none'
+    focus: function(view) {}
+  })
   // TrendsView uses google charts to generate a graph of the week's calorie consumption on a daily basis. This view could easily be extended to include multiple-week, month, or yearly trend graphs.
   TrendsView = Backbone.View.extend({
     el: $('#graph'),
@@ -312,7 +326,7 @@ var activeListView;
     removeAll: function() {
       $('div','.stored').remove();
     }
-  })
+  });
   // ListView is the core of the app, and as such, acts as a parent view for the others, in addition to generating the list of results from a search.
   ListView = Backbone.View.extend({
     el: $('.search'), // the basic element of the ListView is the .form class div
