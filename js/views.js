@@ -236,14 +236,29 @@ var JumbotronView;
     // Our parent element for the Jumbotron view will be an html tag with the jumbotron ID.
     el: $('#jumbotron'),
     // The events will need to change the 'in-focus' view when the corresponding button is pressed.
-    events: {},
+    events: {
+      'click #calendarbtn': 'focus(0)',
+      'click #savedbtn': 'focus(1)',
+      'click #graphbtn': 'focus(2)'
+    },
     // Prepares the element and the view by setting an initial focus and setting everything up that backbone needs
-    initialize: function() {},
+    initialize: function() {
+      _.bindAll(this,'render','focus');
+      var self = this;
+      self.views = [CalendarView.el, StorageView.el, TrendsView.el];
+      self.render();
+    },
     // Makes sure the view and all sub-views are rendered
-    render: function() {},
+    render: function() {
+
+    },
     // Changes focus to the parameter by setting all others to 'display: none'
-    focus: function(view) {}
-  })
+    focus: function(view) {
+      var self = this;
+      $(self.views[view]).toggle();
+      $(self.views).not(self.views[view]).toggle();
+    }
+  });
   // TrendsView uses google charts to generate a graph of the week's calorie consumption on a daily basis. This view could easily be extended to include multiple-week, month, or yearly trend graphs.
   TrendsView = Backbone.View.extend({
     el: $('#graph'),
