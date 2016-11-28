@@ -245,18 +245,22 @@ var JumbotronView;
     initialize: function() {
       _.bindAll(this,'render','focus');
       var self = this;
-      self.views = [CalendarView.el, StorageView.el, TrendsView.el];
+      self.views = [CalendarView, StorageView, TrendsView];
       self.render();
+      self.spotlight(0);
     },
     // Makes sure the view and all sub-views are rendered
     render: function() {
-
+      var self = this;
+      _(self.views).each(function(view) {
+        view.render();
+      })
     },
     // Changes focus to the parameter by setting all others to 'display: none'
-    focus: function(view) {
+    spotlight: function(view) {
       var self = this;
-      $(self.views[view]).toggle();
-      $(self.views).not(self.views[view]).toggle();
+      $(self.views[view].el).toggle();
+      $(self.views.el).not(self.views[view].el).toggle();
     }
   });
   // TrendsView uses google charts to generate a graph of the week's calorie consumption on a daily basis. This view could easily be extended to include multiple-week, month, or yearly trend graphs.
