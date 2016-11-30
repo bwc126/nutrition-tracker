@@ -11,6 +11,9 @@ var indicatorView;
 var listView;
 var calendarView;
 var nav;
+var jumbotron;
+var storageView;
+var trendsView;
 // Wrap our code in the Jquery object, so it executes only once Jquery is ready
 (function($){
   // Instantiate search, indicator, list, calendar and user storage, loading any data saved within the browser
@@ -27,7 +30,9 @@ var nav;
   else {
     userStorage.retrieve();
   }
+  console.log(JumbotronView);
   // window.setTimeout(activeListView.renderTrendsView(),300);
+  jumbotron = new JumbotronView();
 
 
 })(jQuery);
