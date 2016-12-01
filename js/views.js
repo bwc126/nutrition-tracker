@@ -251,10 +251,16 @@ var JumbotronView;
     },
     // Makes sure the view and all sub-views are rendered
     render: function() {
+      var self = this;
+      activeListView.renderTrendsView();
+      activeListView.renderStorageView();
       console.log(this.views);
       _(this.views).each(function(view) {
         console.log(view);
-        view.render();
+        if (view) {
+          view.el = self.el;
+          view.render();
+        }
       })
     },
     // Changes focus to the parameter by setting all others to 'display: none'
