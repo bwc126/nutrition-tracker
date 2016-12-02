@@ -16,7 +16,7 @@ var JumbotronView;
   // The CalendarView acts as a datepicker, allowing the user to select dates for saving items to, inspecting previously saved items, and generating graphs of weekly trends
   CalendarView = Backbone.View.extend({
     // The parent element is chosen to include objects which are later used to trigger updates to activeDate, using only the eventual parent div for the calendar would preclude this.
-    el: $('body'),
+    el: $('#calendar'),
     // Any time the user is about to press a button or save an item, we need to make sure the user-selected date is active. Ideally, updating the activeDate would be done only when the user selects a day on the calendar, but due to how the calendar is generated, we'd have to use a callback or otherwise detect when the calendar is fully generated and attach triggers only then. The present method requires far less overhead and is just as effective in likely use-cases.
     events: {
       'mouseover button' : 'activateDate',
@@ -30,6 +30,8 @@ var JumbotronView;
     },
     // Render uses the standard technique for initializing our datepicker/calendar instance, as specified in the bootstrap-datepicker documentation
     render: function() {
+      console.log('rendering datepicker right about naw');
+      $(self.el).append('<div class="calendar" id="#calendar"></div>');
       $('#calendar').datepicker({
         todayBtn: true,
         todayHighlight: true
@@ -195,12 +197,15 @@ var JumbotronView;
     // initialize binds the keyword 'this' to appropriate functions, renders the storage view (including any items the user has saved for the currently active day) and then binds add/remove events for the user's collection of saved items for the day to the render function for the storage view, so the view updates whenever the user's collection changes.
     initialize: function() {
       _.bindAll(this, 'render', 'appendItem', 'removeAll');
-      this.render();
+      userStorage.date = calendarView.activeDate;
+      userStorage.retrieve();
+      this.collection = userStorage;
       var self = this;
       var coll = this.collection;
       coll.on('add',self.render,self);
       coll.on('remove',self.render,self);
       console.log("storageview init");
+      this.render();
     },
     // render begins by clearing its html element, (through a call to removeAll) then iterates through each item the user has saved and appends it to the page, finishing the rendering process by adding a calorie total for the active day
     render: function() {
@@ -244,7 +249,7 @@ var JumbotronView;
     // Prepares the element and the view by setting an initial focus and setting everything up that backbone needs
     initialize: function() {
       _.bindAll(this,'render','spotlight');
-      console.log('inside initialize');
+      console.log('initializing jumbotron');
       this.views = [calendarView, storageView, trendsView];
       this.render();
       this.spotlight(0);
@@ -252,8 +257,6 @@ var JumbotronView;
     // Makes sure the view and all sub-views are rendered
     render: function() {
       var self = this;
-      activeListView.renderTrendsView();
-      activeListView.renderStorageView();
       console.log(this.views);
       _(this.views).each(function(view) {
         console.log(view);
@@ -265,8 +268,8 @@ var JumbotronView;
     },
     // Changes focus to the parameter by setting all others to 'display: none'
     spotlight: function(view) {
-      $(this.views[view].el).toggle();
-      $(this.views.el).not(this.views[view].el).toggle();
+      // $(this.views[view].el).toggle();
+      // $(this.views.el).not(this.views[view].el).toggle();
     }
   });
   // TrendsView uses google charts to generate a graph of the week's calorie consumption on a daily basis. This view could easily be extended to include multiple-week, month, or yearly trend graphs.
@@ -282,6 +285,9 @@ var JumbotronView;
       _.bindAll(this,'render');
       var self = this;
       indicator.render();
+      userStorage.date = calendarView.activeDate;
+      userStorage.retrieve();
+      this.collection = userStorage;
       this.render();
     },
     // render handles the main business of TrendsView: generating the google chart of weekly calories intake based on daily totals of all saved food items for each day
@@ -289,6 +295,7 @@ var JumbotronView;
       // / First we clear the parent div, ensuring only one up-to-date graph is ever found in the parent div.
       this.removeAll();
       var self = this;
+
       // If google charts still isn't ready, we should let the user know. They should still be able to try again once the package is ready, as this will evaluate to false in that case.
       if (!googCharts) {
         $(this.el).append("<tr>Google Charts Not Ready</tr>")
@@ -398,19 +405,10 @@ var JumbotronView;
       $('.results').children().remove();
     },
     renderStorageView: function() {
-      userStorage.date = calendarView.activeDate;
-      userStorage.retrieve();
-      storageView = new StorageView({
-        collection: userStorage,
-      });
 
     },
     renderTrendsView: function() {
-      userStorage.date = calendarView.activeDate;
-      userStorage.retrieve();
-      trendsView = new TrendsView({
-        collection: userStorage
-      });
+
     }
   });
 })(jQuery);

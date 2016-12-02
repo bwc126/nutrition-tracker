@@ -32,8 +32,9 @@ var trendsView;
   }
   console.log(JumbotronView);
   // window.setTimeout(activeListView.renderTrendsView(),300);
+  storageView = new StorageView();
+  trendsView = new TrendsView();
   jumbotron = new JumbotronView();
-
 
 })(jQuery);
 // TODO: Implement translation-based storage menu transition, rather than width-based animation
