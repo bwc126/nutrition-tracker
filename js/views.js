@@ -30,7 +30,7 @@ var JumbotronView;
     },
     // Render uses the standard technique for initializing our datepicker/calendar instance, as specified in the bootstrap-datepicker documentation
     render: function() {
-      console.log('rendering datepicker right about naw');
+      // console.log('rendering datepicker right about naw');
       $(self.el).append('<div class="calendar" id="#calendar"></div>');
       $('#calendar').datepicker({
         todayBtn: true,
@@ -161,7 +161,7 @@ var JumbotronView;
     },
     getResults: function(key) {
       // Here we prepare the primary component of the nutritionix API key, the url request, including our search term, application ID and key as required by nutrionix' terms of use
-      console.log('getting results....');
+      // console.log('getting results....');
       var Url = "https://api.nutritionix.com/v1_1/search/"+key+"?results=0:20&fields=item_name,brand_name,item_id,nf_calories&appId="+APP_ID+"&appKey="+APP_KEY;
       var req = $.ajax(Url, {
         success: function(response) {
@@ -197,14 +197,13 @@ var JumbotronView;
     // initialize binds the keyword 'this' to appropriate functions, renders the storage view (including any items the user has saved for the currently active day) and then binds add/remove events for the user's collection of saved items for the day to the render function for the storage view, so the view updates whenever the user's collection changes.
     initialize: function() {
       _.bindAll(this, 'render', 'appendItem', 'removeAll');
-      userStorage.date = calendarView.activeDate;
-      userStorage.retrieve();
+
       this.collection = userStorage;
       var self = this;
       var coll = this.collection;
       coll.on('add',self.render,self);
       coll.on('remove',self.render,self);
-      console.log("storageview init");
+      // console.log("storageview init");
       this.render();
     },
     // render begins by clearing its html element, (through a call to removeAll) then iterates through each item the user has saved and appends it to the page, finishing the rendering process by adding a calorie total for the active day
@@ -249,7 +248,7 @@ var JumbotronView;
     // Prepares the element and the view by setting an initial focus and setting everything up that backbone needs
     initialize: function() {
       _.bindAll(this,'render','spotlight');
-      console.log('initializing jumbotron');
+      // console.log('initializing jumbotron');
       this.views = [calendarView, storageView, trendsView];
       this.render();
       this.spotlight(0);
@@ -257,13 +256,13 @@ var JumbotronView;
     // Makes sure the view and all sub-views are rendered
     render: function() {
       var self = this;
-      console.log(this.views);
+      // console.log(this.views);
+      userStorage.date = calendarView.activeDate;
+      userStorage.retrieve();
+      console.log(userStorage);
       _(this.views).each(function(view) {
         console.log(view);
-        if (view) {
-          view.el = self.el;
-          view.render();
-        }
+          // view.render();
       })
     },
     // Changes focus to the parameter by setting all others to 'display: none'
@@ -285,9 +284,8 @@ var JumbotronView;
       _.bindAll(this,'render');
       var self = this;
       indicator.render();
-      userStorage.date = calendarView.activeDate;
-      userStorage.retrieve();
       this.collection = userStorage;
+      console.log('chart begin render');
       this.render();
     },
     // render handles the main business of TrendsView: generating the google chart of weekly calories intake based on daily totals of all saved food items for each day
@@ -295,20 +293,23 @@ var JumbotronView;
       // / First we clear the parent div, ensuring only one up-to-date graph is ever found in the parent div.
       this.removeAll();
       var self = this;
-
+      console.log('in render...');
+      console.log(googCharts);
       // If google charts still isn't ready, we should let the user know. They should still be able to try again once the package is ready, as this will evaluate to false in that case.
       if (!googCharts) {
         $(this.el).append("<tr>Google Charts Not Ready</tr>")
+        this.check = window.setTimeout(this.render, 900);
+
       }
       else {
         var self = this;
         // Within the parent div of the view, we create an immediate parent div for the chart proper, reserving width and height on the page to save just a few ms of having to re-position once the chart is ready.
         $(this.el).append("<div id='chart' class='col-xs-12 chart' style='width:100%; height:50%'></div>");
-
+        console.log('rendering chart');
         // We'll need the width of the parent div, as it's based on the client's active width, ensuring the chart we generate will fit upon generation (at least most of the time).
         var width = $(self.el)[0].clientWidth*0.9;
         var height = $('#calendar').height();
-        console.log(width, height);
+        // console.log(width, height);
         // Here we use google charts to generate the basic unit of our graph: the data, handled much like a table, so we start by adding date/calorie columns.
         var data = new google.visualization.DataTable();
         data.addColumn('string','Date');
