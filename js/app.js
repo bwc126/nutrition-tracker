@@ -30,7 +30,7 @@ var trendsView;
   else {
     userStorage.retrieve();
   }
-  console.log(JumbotronView);
+  // console.log(JumbotronView);
   // window.setTimeout(activeListView.renderTrendsView(),300);
   storageView = new StorageView();
   trendsView = new TrendsView();
