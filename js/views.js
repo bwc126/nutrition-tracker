@@ -241,9 +241,9 @@ var JumbotronView;
     el: $('#jumbotron'),
     // The events will need to change the 'in-focus' view when the corresponding button is pressed.
     events: {
-      'click #calendarbtn': 'focus(0)',
-      'click #savedbtn': 'focus(1)',
-      'click #graphbtn': 'focus(2)'
+      'click #calendarbtn': 'spotlight(0)',
+      'click #savedbtn': 'spotlight(1)',
+      'click .fa-bar-chart': 'spotlight(2)'
     },
     // Prepares the element and the view by setting an initial focus and setting everything up that backbone needs
     initialize: function() {
@@ -251,7 +251,6 @@ var JumbotronView;
       // console.log('initializing jumbotron');
       this.views = [calendarView, storageView, trendsView];
       this.render();
-      this.spotlight(0);
     },
     // Makes sure the view and all sub-views are rendered
     render: function() {
@@ -269,6 +268,10 @@ var JumbotronView;
     spotlight: function(view) {
       // $(this.views[view].el).toggle();
       // $(this.views.el).not(this.views[view].el).toggle();
+      console.log('spotlight actif: ' + view);
+      $(this.el).children().attr('style','display: none');
+      $(this.views[view].el).attr('style','display: block');
+
     }
   });
   // TrendsView uses google charts to generate a graph of the week's calorie consumption on a daily basis. This view could easily be extended to include multiple-week, month, or yearly trend graphs.
@@ -299,7 +302,6 @@ var JumbotronView;
       if (!googCharts) {
         $(this.el).append("<tr>Google Charts Not Ready</tr>")
         this.check = window.setTimeout(this.render, 900);
-
       }
       else {
         var self = this;
