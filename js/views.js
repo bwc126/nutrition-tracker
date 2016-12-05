@@ -241,15 +241,17 @@ var JumbotronView;
     el: $('#jumbotron'),
     // The events will need to change the 'in-focus' view when the corresponding button is pressed.
     events: {
-      'click #calendarbtn': 'spotlight(0)',
-      'click #savedbtn': 'spotlight(1)',
-      'click .fa-bar-chart': 'spotlight(2)'
+      'click #clndrbtn': 'spotlight',
+      'click #strgbtn': 'spotlight',
+      'click #graphbtn': 'spotlight'
     },
     // Prepares the element and the view by setting an initial focus and setting everything up that backbone needs
     initialize: function() {
-      _.bindAll(this,'render','spotlight');
+      _.bindAll(this, 'spotlight');
       // console.log('initializing jumbotron');
       this.views = [calendarView, storageView, trendsView];
+      this.els = [calendarView.el, storageView.el, trendsView.el];
+      this.buttons = ['clndrbtn', 'strgbtn', 'graphbtn'];
       this.render();
     },
     // Makes sure the view and all sub-views are rendered
@@ -265,11 +267,13 @@ var JumbotronView;
       })
     },
     // Changes focus to the parameter by setting all others to 'display: none'
-    spotlight: function(view) {
+    spotlight: function(event) {
+      var view = this.buttons.indexOf(event.currentTarget.id);
+
       // $(this.views[view].el).toggle();
       // $(this.views.el).not(this.views[view].el).toggle();
       console.log('spotlight actif: ' + view);
-      $(this.el).children().attr('style','display: none');
+      $(this.els).attr('style','display: none');
       $(this.views[view].el).attr('style','display: block');
 
     }
@@ -367,8 +371,6 @@ var JumbotronView;
     el: $('.search'), // the basic element of the ListView is the .form class div
     // Two buttons--saved and trends--will effectively give this
     events: {
-      'click .openbtn': 'renderStorageView',
-      'click .graphbtn': 'renderTrendsView'
     },
     initialize: function() {
       _.bindAll(this, 'render', 'addItem', 'appendItem', 'removeAll'); // every function that uses 'this' as the current object should be in here
@@ -379,8 +381,6 @@ var JumbotronView;
     // render adds buttons for the TrendsView and Saved view to the page,
     render: function() {
       var self = this;
-      $('.buttons').prepend("<span class='graphbtn'><i class='fa fa-bar-chart fa-3x' aria-hidden='true'></i></span>");
-      $('.buttons').prepend("<span class='openbtn' onclick='openNav()'><i class='fa fa-archive fa-3x' aria-hidden='true'></i></span>");
       _(this.collection.models).each(function(item) {
         self.appendItem(item);
       }, this);
