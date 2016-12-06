@@ -355,6 +355,7 @@ var JumbotronView;
         var chart = new google.visualization.ColumnChart($("#chart")[0]);
         chart.draw(data,options);
         indicator.unrender();
+        $('#clndrbtn').click();
       }
     },
     // unrender removes any chart inside the #chart div where the chart will normally be
