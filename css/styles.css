@@ -30,6 +30,13 @@ i {
 
   padding: 3%;
   left: 3%;
+  height: 450px;
+
+}
+
+.float-right {
+
+  float: right;
 
 }
 
