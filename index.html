@@ -28,13 +28,14 @@
         <div class="row">
           <!-- TODO: We need to put the jumbotron buttons on the page by default, so triggers get attached correctly -->
           <div class='col-xs-12 jumbotron panel' id='jumbotron'>
-            <div class='calendar col-xs-12' id="calendar"></div>
-            <div class='graph col-xs-12' id='graph'></div>
-            <div class='panel-body col-xs-12' id='storage'></div>
-            <span id='graphbtn'><i class='fa fa-bar-chart fa-3x' aria-hidden='true'></i></span>
-            <span id='strgbtn'><i class='fa fa-archive fa-3x' aria-hidden='true'></i></span>
-            <span id='clndrbtn'><i class='fa fa-calendar fa-3x' aria-hidden='true'></i></span>
-
+            <div class='calendar col-xs-9' id="calendar"></div>
+            <div class='graph col-xs-9' id='graph'></div>
+            <div class='panel-body col-xs-9' id='storage'></div>
+            <div class='col-xs-3 row float-right'>
+              <span id='graphbtn' class='col-xs-12'><i class='fa fa-bar-chart fa-3x ' aria-hidden='true'></i></span>
+              <span id='strgbtn' class='col-xs-12'><i class='fa fa-archive fa-3x ' aria-hidden='true'></i></span>
+              <span id='clndrbtn' class='col-xs-12'><i class='fa fa-calendar fa-3x ' aria-hidden='true'></i></span>
+            </div>
             <!-- <div id="carousel-example-generic" class="carousel slide col-xs-8" data-ride="carousel" data-interval="false">
               <ol class="carousel-indicators">
                 <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -63,6 +64,7 @@
           <div class='row buttons'>
           </div>
           <div class='row'>
+            <div class='well'>Filter</div>
             <input type="text" placeholder="Search" class='col-xs-6'>
             <img src="img/ajax-loader.gif" alt='Loading Indicator' class='col-xs-1' height="36" width="99">
           </div>
