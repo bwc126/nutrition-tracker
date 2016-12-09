@@ -9,8 +9,15 @@ body {
 i {
 
   color: dodgerblue;
-  margin: 0 3%;
   position: relative;
+
+
+}
+
+span {
+
+  margin: 9% 0;
+  text-align: center;
 
 }
 
