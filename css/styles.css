@@ -33,6 +33,12 @@ span {
 
 }
 
+.txt-glow-white {
+
+  text-shadow: 0 0 3px white;
+
+}
+
 .jumbotron {
 
   padding: 3%;
@@ -105,6 +111,12 @@ img {
 }
 
 /*Search and list*/
+
+.search {
+
+  margin: 0 0 0 3%;
+
+}
 
 .results .div {
 

@@ -275,6 +275,7 @@ var JumbotronView;
       console.log('spotlight actif: ' + view);
       $(this.els).attr('style','display: none');
       $(this.views[view].el).attr('style','display: block');
+      // this.views[view].render();
 
     }
   });
