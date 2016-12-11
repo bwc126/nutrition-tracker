@@ -275,6 +275,7 @@ var JumbotronView;
       console.log('spotlight actif: ' + view);
       $(this.els).attr('style','display: none');
       $(this.views[view].el).attr('style','display: block');
+
       // this.views[view].render();
 
     }
@@ -293,14 +294,15 @@ var JumbotronView;
       var self = this;
       indicator.render();
       this.collection = userStorage;
+      userStorage.on('change', self.render);
       console.log('chart begin render');
       this.render();
     },
     // render handles the main business of TrendsView: generating the google chart of weekly calories intake based on daily totals of all saved food items for each day
     render: function() {
       // / First we clear the parent div, ensuring only one up-to-date graph is ever found in the parent div.
-      this.removeAll();
       var self = this;
+      self.unrender();
       console.log('in render...');
       console.log(googCharts);
       // If google charts still isn't ready, we should let the user know. They should still be able to try again once the package is ready, as this will evaluate to false in that case.
@@ -357,11 +359,12 @@ var JumbotronView;
         chart.draw(data,options);
         indicator.unrender();
         $('#clndrbtn').click();
+
       }
     },
     // unrender removes any chart inside the #chart div where the chart will normally be
     unrender: function() {
-      $('#chart',this.el).remove();
+      $(this.el).children().remove();
     },
     // removeAll is virtually identical to the function of the same name within the StorageView class, removing any table rows within the div with the 'stored' class.
     removeAll: function() {
