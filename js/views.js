@@ -284,7 +284,7 @@ var JumbotronView;
   TrendsView = Backbone.View.extend({
     el: $('#graph'),
     events: {
-      'click #calendar': 'render',
+      'click #graphbtn': 'render',
       'click #saved': 'unrender',
       'keyup input': 'unrender'
     },
