@@ -201,8 +201,10 @@ table.stored {
 
 .panel-footer {
 
-  color: white;
-  background-color: #333;
+  margin: 3%;
+  padding: 3%;
+  color: #999;
+  background-color: #444;
 
 }
 
