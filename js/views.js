@@ -19,13 +19,17 @@ var JumbotronView;
     el: $('#calendar'),
     // Any time the user is about to press a button or save an item, we need to make sure the user-selected date is active. Ideally, updating the activeDate would be done only when the user selects a day on the calendar, but due to how the calendar is generated, we'd have to use a callback or otherwise detect when the calendar is fully generated and attach triggers only then. The present method requires far less overhead and is just as effective in likely use-cases.
     events: {
-      'mouseover button' : 'activateDate',
-      'mouseover span' : 'activateDate'
+      'mouseover i button' : 'activateDate',
+      'click td' : 'activateDate'
     },
     // Since the CalendarView is our datepicker, and no date will initially be selected, we instantiate the activeDate as today
     initialize: function() {
       _.bindAll(this, 'render', 'activateDate');
+      var self = this;
       this.activeDate = todayFormatted;
+      $('i button').click(function() {
+        self.activateDate();
+      });
       this.render();
     },
     // Render uses the standard technique for initializing our datepicker/calendar instance, as specified in the bootstrap-datepicker documentation
@@ -39,6 +43,7 @@ var JumbotronView;
     },
     // Update activeDate with the current selection on the datepicker, and change the active user storage date
     activateDate: function() {
+      console.log('inside activatedate');
       var self = this;
       var rawDate = $('#calendar').datepicker('getDate');
       var activeDate;
@@ -49,7 +54,9 @@ var JumbotronView;
         activeDate = moment(rawDate);
       }
       self.activeDate = activeDate.format("MM-DD-YYYY");
-      userStorage.date = self.activeDate;
+      if (userStorage) {
+        userStorage.date = self.activeDate;
+      }
     }
   });
   // When our search query to nutritionix returns, ItemView is how those individual items are shown
