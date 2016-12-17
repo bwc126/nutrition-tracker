@@ -27,7 +27,7 @@ var JumbotronView;
       _.bindAll(this, 'render', 'activateDate');
       var self = this;
       this.activeDate = todayFormatted;
-      $('i button').click(function() {
+      $('i, button').click(function() {
         self.activateDate();
       });
       this.render();
@@ -302,7 +302,6 @@ var JumbotronView;
       indicator.render();
       this.collection = userStorage;
       console.log('chart begin render');
-      userStorage.on('add remove', this.refresh, self);
       this.data = [];
       this.options = '';
       this.render();
@@ -372,7 +371,6 @@ var JumbotronView;
       }
     },
     refresh: function() {
-      console.log('refreshing the graph');
       // this.render();
       // var self = this;
       // this.chart.draw(this.data,this.options);
