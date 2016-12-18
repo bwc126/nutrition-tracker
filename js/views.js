@@ -56,6 +56,7 @@ var JumbotronView;
       self.activeDate = activeDate.format("MM-DD-YYYY");
       if (userStorage) {
         userStorage.date = self.activeDate;
+        userStorage.retrieve();
       }
     }
   });
