@@ -21,7 +21,7 @@ var userStorage;
       _.bindAll(this, 'add', 'store', 'retrieve');
       var self = this;
       this.date = date;
-      this.date.on('change', self.retrieve);
+      this.on('change', self.retrieve);
       this.bind('add', self.store);
       this.bind('remove', self.store);
     },
