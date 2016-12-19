@@ -107,7 +107,8 @@ var JumbotronView;
     },
     // Render uses jquery to place a tag on the page and edit its html in place to display the food item's name and calorie content
     render: function(){
-      $(this.el).html('<div>'+this.model.get('name')+' '+this.model.get('cals')+'</div> &nbsp; &nbsp; <button class="btn btn-danger" style="font-family:sans-serif; cursor:pointer;">Delete</button>');
+      $(this.el).html('<div class="col-xs-9">'+this.model.get('name')+' '+this.model.get('cals')+'</div> &nbsp; &nbsp; <button class="btn btn-danger" style="font-family:sans-serif; cursor:pointer;">Delete</button>');
+      $(this.el).addClass('row');
       return this;
     },
 
