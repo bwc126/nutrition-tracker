@@ -29,13 +29,13 @@ span {
 
 .box-glow-white {
 
-  box-shadow: 0 0 3px white;
+  box-shadow: 0 0 6px 3px white;
 
 }
 
 .txt-glow-white {
 
-  text-shadow: 0 0 3px white;
+  text-shadow: 0 0 6px 3px white;
 
 }
 
@@ -211,6 +211,12 @@ table.stored {
 .chart div {
 
   box-shadow: 0 0 6px white;
+
+}
+
+.storage .row {
+
+  margin: 3% 0;
 
 }
 
