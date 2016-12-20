@@ -87,6 +87,7 @@ var JumbotronView;
     save: function(){
       userStorage.add(this.model);
       activeListView.removeAll();
+      $('#strgbtn').click();
     },
     // Destroys the corresponding model for this food item view
     remove: function(){
