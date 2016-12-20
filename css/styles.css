@@ -33,9 +33,21 @@ span {
 
 }
 
+.box-glow-white-in {
+
+  box-shadow: 0 0 6px 3px white inset;
+
+}
+
 .txt-glow-white {
 
   text-shadow: 0 0 6px 3px white;
+
+}
+
+.txt-glow-blue {
+
+  text-shadow: 0 0 3px dodgerblue;
 
 }
 
@@ -159,6 +171,7 @@ table.stored {
 
   background-color: #333;
   box-shadow: 0 0 6px 3px white;
+  border-radius: 6px;
 
 }
 
@@ -211,12 +224,19 @@ table.stored {
 .chart div {
 
   box-shadow: 0 0 6px white;
+  border-radius: 6px;
 
 }
 
 .storage .row {
 
   margin: 3% 0;
+
+}
+
+.storage {
+
+  border-radius: 6px;
 
 }
 
