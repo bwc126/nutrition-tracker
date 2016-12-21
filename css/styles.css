@@ -115,7 +115,7 @@ input {
   margin: 1% 0;
   background-color: #333;
   text-shadow: 0 0 3px white;
-  box-shadow: 0 0 3px white;
+  box-shadow: 0 0 3px white inset;
 
 }
 
@@ -170,7 +170,7 @@ table.stored {
 .table-condensed {
 
   background-color: #333;
-  box-shadow: 0 0 6px 3px white;
+  box-shadow: 0 0 6px 3px white inset;
   border-radius: 6px;
 
 }
