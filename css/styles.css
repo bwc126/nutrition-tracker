@@ -127,7 +127,7 @@ img {
 
 .search {
 
-  margin: 0 0 0 3%;
+  margin: 0;
 
 }
 
@@ -252,9 +252,4 @@ footer a {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 
-    .graph {
-
-      float: right;
-
-    }
 }
