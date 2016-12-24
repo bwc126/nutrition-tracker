@@ -34,6 +34,7 @@ var trendsView;
   // window.setTimeout(activeListView.renderTrendsView(),300);
   storageView = new StorageView();
   trendsView = new TrendsView();
+  activeTrendsView = trendsView;
   jumbotron = new JumbotronView();
 
 })(jQuery);
