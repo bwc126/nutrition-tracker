@@ -11,6 +11,7 @@ var ListView;
 var indicator;
 var activeListView;
 var JumbotronView;
+var activeTrendsView;
 
 (function($) {
   // The CalendarView acts as a datepicker, allowing the user to select dates for saving items to, inspecting previously saved items, and generating graphs of weekly trends
@@ -279,7 +280,9 @@ var JumbotronView;
     // Changes focus to the parameter by setting all others to 'display: none'
     spotlight: function(event) {
       var view = this.buttons.indexOf(event.currentTarget.id);
-
+      if (view === 2) {
+        activeTrendsView.refresh();
+      }
       // $(this.views[view].el).toggle();
       // $(this.views.el).not(this.views[view].el).toggle();
       console.log('spotlight actif: ' + view);
@@ -377,6 +380,7 @@ var JumbotronView;
       // this.render();
       // var self = this;
       // this.chart.draw(this.data,this.options);
+      activeTrendsView = new TrendsView();
     },
     // unrender removes any chart inside the #chart div where the chart will normally be
     unrender: function() {
