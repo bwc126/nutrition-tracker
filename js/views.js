@@ -297,9 +297,6 @@ var activeTrendsView;
   TrendsView = Backbone.View.extend({
     el: $('#graph'),
     events: {
-      'click #graphbtn': 'render',
-      'click #saved': 'unrender',
-      'keyup input': 'unrender'
     },
     // When a TrendsView is first created, we want the indicator to show, and to begin the rendering process. The 'this' keyword also needs to be bound.
     initialize: function() {
