@@ -281,6 +281,8 @@ var activeTrendsView;
     spotlight: function(event) {
       var view = this.buttons.indexOf(event.currentTarget.id);
       if (view === 2) {
+        $(this.els).attr('style','display: none');
+        $(this.views[view].el).attr('style','display: block');
         activeTrendsView.refresh();
       }
       // $(this.views[view].el).toggle();
