@@ -76,7 +76,7 @@ var activeTrendsView;
     },
     // Render uses jquery to place a tag on the page and edit its html in place to display the food item's name and calorie content
     render: function(){
-      $(this.el).html('<button class="btn btn-success">'+this.model.get('name')+' '+this.model.get('cals')+'&nbsp; &nbsp; </button>');
+      $(this.el).html('<button class="btn btn-success box-glow-white">'+this.model.get('name')+' '+this.model.get('cals')+'&nbsp; &nbsp; </button>');
 
       return this;
     },
