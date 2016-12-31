@@ -140,7 +140,7 @@ img {
 .results .btn-success {
 
   width: 99%;
-  margin: 0.6%;
+  margin: 0.6% 0;
   color: #CCC;
   background-color: #333;
   border-color: #333;
