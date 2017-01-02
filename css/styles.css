@@ -149,9 +149,6 @@ img {
 
 .form {
 
-
-
-
 }
 
 .form table,
@@ -224,9 +221,10 @@ table.stored {
 
 }
 
-.chart div {
+.chart div div div svg {
 
-  box-shadow: 0 0 6px white;
+  filter: drop-shadow(0 0 6px white);
+  /*box-shadow: 0 0 9px white inset;*/
   border-radius: 6px;
 
 }
