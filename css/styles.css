@@ -221,7 +221,7 @@ table.stored {
 
 }
 
-.chart div div div svg {
+.chart svg {
 
   filter: drop-shadow(0 0 6px white);
   /*box-shadow: 0 0 9px white inset;*/
