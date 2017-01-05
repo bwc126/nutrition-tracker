@@ -203,12 +203,22 @@ table.stored {
 .datepicker table tr td.day:hover {
 
   background-color: dodgerblue;
+  filter: drop-shadow(0 0 6px dodgerblue);
 
 
 }
 
 .datepicker table tr td.today {
-  background-color: #FF4900;
+
+  background-color: white;
+  filter: drop-shadow(0 0 6px white);
+
+}
+
+.datepicker table tr td.active.active {
+
+  filter: drop-shadow(0 0 6px #3071a9);
+
 }
 
 .left {
