@@ -29,7 +29,7 @@ span {
 
 .box-glow-white {
 
-  box-shadow: 0 0 6px 3px white;
+  filter: drop-shadow(0 0 6px white);
 
 }
 
@@ -159,11 +159,12 @@ img {
 
 .form table,
 table.stored {
-  border: solid black;
+
   border-width: 0 1px;
   width: 100%;
   color: white;
   margin: 1% 0%;
+
 }
 
 .panel div{
@@ -176,8 +177,10 @@ table.stored {
 .table-condensed {
 
   background-color: #333;
-  box-shadow: 0 0 6px 3px white inset;
+  filter: drop-shadow(0 0 6px white);
+  /*box-shadow: 0 0 6px 3px white inset;*/
   border-radius: 6px;
+  border: none;
 
 }
 
