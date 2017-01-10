@@ -184,6 +184,18 @@ table.stored {
 
 }
 
+.datepicker .prev:hover {
+
+  filter: drop-shadow(0 0 6px #eee);
+
+}
+
+.datepicker .datepicker-switch:hover {
+
+  filter: drop-shadow(0 0 6px #eee);
+
+}
+
 .datepicker.datepicker-inline {
 
   width: 100%;
@@ -221,6 +233,12 @@ table.stored {
 .datepicker table tr td.active.active {
 
   filter: drop-shadow(0 0 6px #3071a9);
+
+}
+
+.datepicker tfoot tr th:hover {
+
+  filter: drop-shadow(0 0 6px #eee);
 
 }
 
