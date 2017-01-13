@@ -190,6 +190,12 @@ table.stored {
 
 }
 
+.datepicker .next:hover {
+
+  filter: drop-shadow(0 0 6px #eee);
+  
+}
+
 .datepicker .datepicker-switch:hover {
 
   filter: drop-shadow(0 0 6px #eee);
