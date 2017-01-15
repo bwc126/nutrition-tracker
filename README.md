@@ -38,3 +38,5 @@ http://www.ajaxload.info/
 -~~ Improve aesthetics, responsiveness.~~
 - Add new nutrient info sources, recording them as well.
 - Add new visualization options, perhaps use J3.
+- Tell user what the graph uses for data.
+- Indicate data is stored in browser. 
