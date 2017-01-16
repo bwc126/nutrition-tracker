@@ -264,6 +264,9 @@ var activeTrendsView;
       this.els = [calendarView.el, storageView.el, trendsView.el];
       this.buttons = ['clndrbtn', 'strgbtn', 'graphbtn'];
       this.render();
+      $(window).resize(function(){
+        activeTrendsView.refresh();
+      });
     },
     // Makes sure the view and all sub-views are rendered
     render: function() {
