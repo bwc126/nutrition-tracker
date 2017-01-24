@@ -21,6 +21,12 @@ span {
 
 }
 
+.instruction {
+
+  margin: 3% 0; 
+
+}
+
 .buttons {
 
   margin: 0.3% 0;
@@ -193,7 +199,7 @@ table.stored {
 .datepicker .next:hover {
 
   filter: drop-shadow(0 0 6px #eee);
-  
+
 }
 
 .datepicker .datepicker-switch:hover {
