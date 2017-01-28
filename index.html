@@ -28,16 +28,20 @@
         <div class="row">
 
           <div class='col-xs-12 jumbotron panel box-glow-white-in' id='jumbotron'>
-            <div class=col-xs-9>
-              <div class='calendar col-xs-9' id="calendar"></div>
-              <div class='graph col-xs-9' id='graph'></div>
-              <div class='storage panel col-xs-9 box-glow-white txt-glow-white' id='storage'></div>
-              <div class='col-xs-9 instruction txt-glow-white'>Select a date on the calendar to view stored items for that day, and trend graph for week prior. </div>
+            <div class="row">
+              <div class="col-xs-9">
+                <div class='calendar col-xs-9' id="calendar"></div>
+                <div class='graph col-xs-9' id='graph'></div>
+                <div class='storage panel col-xs-9 box-glow-white txt-glow-white' id='storage'></div>
+              </div>
+              <div class='col-xs-3 row float-right'>
+                <span id='graphbtn' class='col-xs-12'><i class='fa fa-bar-chart fa-3x txt-glow-blue' aria-hidden='true'></i></span>
+                <span id='strgbtn' class='col-xs-12'><i class='fa fa-archive fa-3x txt-glow-blue' aria-hidden='true'></i></span>
+                <span id='clndrbtn' class='col-xs-12'><i class='fa fa-calendar fa-3x txt-glow-blue' aria-hidden='true'></i></span>
+              </div>
             </div>
-            <div class='col-xs-3 row float-right'>
-              <span id='graphbtn' class='col-xs-12'><i class='fa fa-bar-chart fa-3x txt-glow-blue' aria-hidden='true'></i></span>
-              <span id='strgbtn' class='col-xs-12'><i class='fa fa-archive fa-3x txt-glow-blue' aria-hidden='true'></i></span>
-              <span id='clndrbtn' class='col-xs-12'><i class='fa fa-calendar fa-3x txt-glow-blue' aria-hidden='true'></i></span>
+            <div class='row'>
+                <div class='col-xs-9 instruction txt-glow-white'>Select a date on the calendar to view stored items for that day, and trend graph for week prior. </div>
             </div>
             <!-- <div id="carousel-example-generic" class="carousel slide col-xs-8" data-ride="carousel" data-interval="false">
               <ol class="carousel-indicators">
